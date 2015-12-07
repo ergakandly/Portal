@@ -1,0 +1,38 @@
+<!DOCTYPE struts-config PUBLIC
+       "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+       "http://struts.apache.org/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+	<form-beans>
+		<form-bean name="PortalForm" type="com.hris.portal.form.PortalForm"></form-bean>
+	</form-beans>
+
+	<action-mappings>
+ 		<action path="/portal" name="PortalForm"
+ 			type="com.hris.portal.handler.PortalAction" scope="request">
+			<forward name="masterRole" path="/WEB-INF/jsp/PortalMasterRole.jsp"></forward>
+			<forward name="dashboardUser" path="/WEB-INF/jsp/PortalDashboardUser.jsp"></forward>
+			<forward name="dashboardAdmin" path="/WEB-INF/jsp/PortalDashboardAdmin.jsp"></forward>
+			<forward name="dashboardSuper" path="/WEB-INF/jsp/PortalDashboardSuper.jsp"></forward>
+			<forward name="changePass" path="/WEB-INF/jsp/PortalUserChangePassword.jsp"></forward>
+			<forward name="addEditRole" path="/WEB-INF/jsp/PortalAddEditRole.jsp"></forward>
+			<forward name="masterModul" path="/WEB-INF/jsp/PortalMasterModul.jsp"></forward>
+			<forward name="assignRole" path="/WEB-INF/jsp/PortalMasterAssignRole.jsp"></forward>
+			<forward name="addEditAssignRole" path="/WEB-INF/jsp/PortalAddEditAssignRole.jsp"></forward>
+			<forward name="assignRoleEmployee" path="/WEB-INF/jsp/PortalMasterAssignRoleEmployee.jsp"></forward>
+			<forward name="masterOthers" path="/WEB-INF/jsp/PortalMasterOthers.jsp"></forward>
+			<forward name="success" path="/WEB-INF/jsp/PortalLogin.jsp"></forward>
+			<forward name="kirimEmail" path="/WEB-INF/jsp/PortalKirimEmail.jsp"></forward>
+			<forward name="masterPrivilege" path="/WEB-INF/jsp/PortalMasterPrivilege.jsp"></forward>
+<!-- 			<forward name="success" path="/WEB-INF/jsp/PortalUserChangePassword.jsp"></forward> -->
+ 		</action>
+	</action-mappings>
+
+	<!-- UNTUK VALIDATOR -->
+	<message-resources parameter="ApplicationResources" />
+	<plug-in className="org.apache.struts.validator.ValidatorPlugIn">
+		<set-property property="pathnames"
+			value="/WEB-INF/validator-rules.xml,
+                   /WEB-INF/validator-user.xml" />
+	</plug-in>
+</struts-config>      

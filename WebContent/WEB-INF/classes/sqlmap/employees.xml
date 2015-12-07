@@ -1,0 +1,500 @@
+<!DOCTYPE sqlMap
+PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="employees">
+
+<!-- ASSIGN ROLE	 -->
+	<select id="getEmployee" resultClass="com.hris.portal.model.PortalBean" parameterClass="java.util.Map">
+		SELECT
+			emp.employee_id 	AS employeeId,
+			emp.employee_name 	AS employeeName,
+			emp.nik 			AS nik,
+			dept.department 	AS departmentName,
+			loc.location 		AS locationName,
+   	 		users.employee_id 	AS userEmployeeId
+		FROM
+			ms_employee emp
+		LEFT OUTER JOIN
+			ms_department dept 
+        ON
+        	dept.department_id = emp.department_id
+            
+            LEFT OUTER JOIN
+            	ms_location loc
+            ON
+            	loc.location_id = emp.location_id
+	            
+	            LEFT OUTER JOIN
+	            	ms_user users
+	    		ON
+	    			users.employee_id = emp.employee_id
+		WHERE
+			1=1
+		<dynamic prepend="AND">
+			<isNotEmpty property = "departmentId" >
+				dept.department_id = #departmentId#
+			</isNotEmpty>
+		</dynamic> 
+		<dynamic prepend="AND">
+			<isNotEmpty property = "searchName">
+<!-- 				lower(e.employee_name) = lower(#searchName#) -->
+				LOWER(emp.employee_name) like '%'||LOWER(#searchName#)||'%'
+			</isNotEmpty>
+		</dynamic> 
+		ORDER BY 
+			emp.employee_id
+	</select>
+
+	<select id = "getDepartmentName" resultClass="com.hris.portal.model.PortalDepartmentBean" parameterClass="java.lang.String">
+<!-- 		SELECT -->
+<!-- 			d.department_id AS departmentId, -->
+<!-- 		    d.department || ' - ' || l.location AS msDepartmentName, -->
+<!-- 		    d.location_id AS locationId -->
+<!-- 		FROM -->
+<!-- 		    ms_department d -->
+<!-- 		    join ms_location l -->
+<!-- 		    on l.location_id = d.location_id -->
+<!-- 		order by -->
+<!-- 		    department_id -->
+
+		SELECT
+		    department_id 	AS departmentId,
+		    department 		AS msDepartmentName
+		FROM
+		    ms_department
+		ORDER BY
+		    department_id
+	</select>
+	
+	<select id = "getOneEmp" resultClass="com.hris.portal.model.PortalDepartmentBean" parameterClass="java.lang.String">
+		SELECT
+<!-- 		    e.employee_id AS employeeId, -->
+			emp.employee_name 	AS deptEmployeeName,
+			emp.nik 			AS nik,
+		    emp.department_id 	AS departmentId,
+		    dept.department 	AS msDepartmentName,
+		    emp.location_id 	AS locationId,
+			emp.date_of_birth	AS dateOfBirth
+		FROM
+		    ms_employee emp
+		JOIN
+			ms_department dept
+		ON
+			dept.department_id = emp.department_id
+		WHERE
+			emp.employee_id = #empId# 
+	</select>
+
+	<select id = "getRoleList" resultClass="com.hris.portal.model.PortalBean" parameterClass="java.lang.String">
+		SELECT
+		    emp.employee_name 	AS employeeName,
+		    role.role_name 		AS roleName
+		FROM
+		    ms_employee emp
+		JOIN
+			ms_user users
+		ON
+			users.employee_id = emp.employee_id
+		    
+		    JOIN
+		    	ms_role role
+		    ON
+		    	users.role_id = role.role_id
+		ORDER BY 
+		    emp.employee_id	
+	</select>
+	
+	<select id = "getRoleName" resultClass="com.hris.portal.model.PortalBean" parameterClass="java.lang.String">
+		SELECT
+			role_id 	AS roleId,
+		    role_name 	AS roleName
+		FROM
+		    ms_role
+	</select>
+	
+	<select id = "getUserList" resultClass="com.hris.portal.model.PortalUserBean" parameterClass="java.lang.String">
+		SELECT
+		    user_id 	AS userId,
+		    username 	AS userName,
+		    password 	AS password,
+		    role_id 	AS userRoleId,
+		    employee_id	AS userEmployeeId
+		FROM
+		    ms_user
+		ORDER BY
+			user_id
+	</select>
+	
+	<insert id = "insertUser" parameterClass="java.util.Map">
+		INSERT INTO
+			MS_USER (
+				user_id,
+				username,
+				password,
+				employee_id,
+				role_id,
+				is_login,
+				created_by,
+				create_date,
+				updated_by,
+				update_date
+			)
+		VALUES (
+				(SELECT MAX(user_id) AS MAX_ID FROM MS_USER)+1,
+				#userName#,
+				GET_HASH(#pass#),
+				#empId#,
+				#roleId#,
+				'0',
+				1,
+				SYSDATE,
+				null,
+				null
+		)
+	</insert>
+
+<!-- MASTER ROLE -->
+	<select id = "getMasterRoleName" resultClass="com.hris.portal.model.PortalMasterRoleBean" parameterClass="java.lang.String">
+		SELECT
+			role_id 	AS roleId,
+			role_name 	AS roleName,
+			description AS description
+		FROM
+		    ms_role
+		ORDER BY
+		    role_id
+	</select>
+
+<!-- Menu Role -->
+	<select id = "getMenuRoleName" resultClass="com.hris.portal.model.PortalMasterRoleBean" parameterClass="java.lang.String">
+		SELECT
+			menu.menu_id 	AS menuId,
+		    menu.menu 		AS menuName,
+		    menu.url_menu 	AS urlMenuRole,
+		    menu.icon 		AS icon
+		FROM
+		    ms_role role
+		LEFT JOIN
+			tr_role_menu rolemenu
+		ON rolemenu.role_id = role.role_id
+		    
+		    LEFT JOIN
+		    	ms_menu menu
+		    ON
+		    	rolemenu.menu_id = menu.menu_id
+		WHERE
+		    role.role_id=#roleId#
+		order by
+		    role.role_id
+	</select>
+	
+<!-- 	Privilage Role -->
+	<select id = "getPrivRoleName" resultClass="com.hris.portal.model.PortalMasterRoleBean" parameterClass="java.lang.String">
+		SELECT
+		    priv.privilege_id 	AS privilegeId,
+		    priv.privilege 	AS privilegeName
+		FROM
+		    ms_role role
+		LEFT JOIN
+			tr_role_privilege rolepriv
+		ON
+			rolepriv.role_id = role.role_id 
+		    
+		    LEFT JOIN
+		    	ms_privilege priv
+		    ON
+		    	rolepriv.privilege_id = priv.privilege_id
+		WHERE
+		    role.role_id=#roleId#
+		ORDER BY
+		    role.role_id
+	</select>
+	
+<!-- 	MENU VIEW -->
+	<select id = "getMasterMenuName" resultClass="com.hris.portal.model.PortalMasterRoleBean" parameterClass="java.lang.String">
+		SELECT
+		    menu_id 	AS menuIdView,
+		    menu 		AS menuNameView,
+		    url_menu 	AS urlMenuView,
+		    icon 		AS icon
+		FROM
+		    ms_menu
+		order by
+		    menu_id
+	</select>
+	
+<!-- 	PRIVILAGE VIEW -->
+	<select id = "getMasterPrivilegeName" resultClass="com.hris.portal.model.PortalMasterRoleBean" parameterClass="java.lang.String">
+		SELECT
+		    privilege_id 	AS privilegeIdView,
+		    privilege 		AS privilegeNameView
+		FROM
+		    ms_privilege
+		order by
+		    privilege_id
+	</select>
+
+<!-- 	INSERT NEW ROLE Name-->
+	<insert id = "insertNewRoleName" parameterClass="java.util.Map">
+		INSERT INTO
+		    ms_role(
+		    	role_id,
+		    	role_name,
+		    	description,
+		    	created_by,
+		    	create_date,
+		    	updated_by,
+		    	update_date
+		    )
+		VALUES (
+				MS_ROLE_SEQ.NEXTVAL,
+			    #addRoleName#,
+			    #description#,
+			    1,
+			    SYSDATE,
+			    '',
+			    ''
+		)
+	</insert>
+
+<!-- 	INSERT NEW ROLE TR_MENU-->
+	<insert id = "insertNewRoleMenu" parameterClass="java.lang.String">
+		INSERT INTO
+		    tr_role_menu(
+		    	role_menu_id,
+		    	role_id,
+		    	menu_id,
+		    	description,
+		    	created_by,
+		    	create_date,
+		    	updated_by,
+		    	update_date
+		    )
+		VALUES(
+				TR_ROLE_MENU_SEQ.NEXTVAL,
+				MS_ROLE_SEQ.CURRVAL,
+				#insertRoleMenuId#,
+				'',
+				1,
+				SYSDATE,
+				'',
+				''
+		)
+	</insert>
+	
+<!-- 	INSERT NEW ROLE -->
+	<insert id = "insertNewRolePriv" parameterClass="java.lang.String">
+		INSERT INTO
+		    tr_role_privilege(
+		    	role_privilege_id,
+		    	role_id,
+		    	privilege_id,
+		    	description,
+		    	created_by,
+		    	create_date,
+		    	updated_by,
+		    	update_date
+		    )
+		VALUES(
+				TR_ROLE_PRIVILEGE_SEQ.NEXTVAL,
+				MS_ROLE_SEQ.CURRVAL,
+				#insertRolePrivId#,
+				'',
+				1,
+				sysdate,
+				'',
+				''
+		)
+	</insert>
+
+<!-- 	EDIT NEW ROLE Name -->
+	<update id = "updateNewRoleName" parameterClass="java.util.Map">
+		UPDATE
+		    ms_role
+		SET
+		    role_name = #roleName#,
+		    description = #description#,
+		    updated_by = 1,
+		    update_date = SYSDATE
+		WHERE
+		    role_id = #id#
+	</update>
+
+<!-- 	DELETE ROLE MENU-->
+	<delete id = "deleteRoleMenu" parameterClass="java.lang.String">
+		DELETE FROM
+		    tr_role_menu
+		WHERE
+		    role_id = #roleId#
+	</delete>
+	
+<!-- 	DELETE ROLE PRIV-->
+	<delete id = "deleteRolePriv" parameterClass="java.lang.String">
+		DELETE FROM
+		    tr_role_privilege
+		WHERE
+		    role_id = #roleId#
+	</delete>
+	
+<!-- 	DELETE ROLE USER-->
+	<delete id = "deleteRoleUser" parameterClass="java.lang.String">
+		DELETE FROM
+		    ms_role
+		WHERE
+		    role_id = #roleId#
+	</delete>
+	
+<!-- 	MODUL VIEW -->
+	<select id = "getMasterModul" resultClass="com.hris.portal.model.PortalModulBean" parameterClass="java.lang.String">
+		SELECT
+		    menu_id 			AS menuIdModul,
+		    menu 				AS menuName,
+		    url_menu 			AS urlMenu,
+		    icon 				AS icon,
+		    Substr (icon,11) 	AS iconSubstr
+		FROM
+		    ms_menu
+		order by
+		    menu_id
+	</select>
+
+<!-- 	INSERT NEW MODUL -->
+	<insert id = "insertNewModul" parameterClass="java.util.Map">
+		INSERT INTO
+		    ms_menu(
+		    	menu_id,
+		    	menu,
+		    	url_menu,
+		    	icon,
+		    	created_by,
+		    	create_date,
+		    	updated_by,
+		    	update_date
+		    )
+		VALUES(
+			MS_MENU_SEQ.NEXTVAL,
+			#menuName#,
+			#urlMenu#,
+			#icon#,
+			1,
+			SYSDATE,
+			'',
+			''
+		)
+	</insert>
+	
+<!-- 	EDIT MODUL -->
+	<update id = "editModul" parameterClass="java.util.Map">
+		UPDATE
+		    ms_menu
+		SET
+			MENU = #menuName#,
+			URL_MENU = #urlMenu#,
+			ICON = #icon#,
+			UPDATED_BY = 1,
+			UPDATE_DATE = SYSDATE
+		WHERE MENU_ID = #menuIdModul#
+	</update>
+	
+<!-- 	DELETE ROLE USER-->
+	<delete id = "deleteMenu" parameterClass="java.lang.String">
+		DELETE FROM
+		    ms_menu
+		WHERE
+		    menu_id = #menuIdModul#
+	</delete>
+	
+	
+<!-- 	SELECT MENU FROM ROLE_ID -->
+	<select id = "getMenuRoleList" resultClass="com.hris.portal.model.PortalMasterRoleBean" parameterClass="java.lang.String">
+		SELECT
+		    menu_id AS menuId
+		FROM
+		    tr_role_menu
+		WHERE
+		    role_id = #id#
+	</select>
+	
+<!-- 	SELECT PRIVILEGE FROM ROLE_ID -->
+	<select id = "getPrivilegeRoleList" resultClass="com.hris.portal.model.PortalMasterRoleBean" parameterClass="java.lang.String">
+		SELECT
+		    privilege_id AS privilegeId
+		FROM
+		    tr_role_privilege
+		WHERE
+		    role_id = #id#
+	</select>
+	
+	
+<!-- 	DELETE EXIST MENU-->
+	<delete id = "deleteExistMenu" parameterClass="java.util.Map">
+		DELETE FROM
+		    tr_role_menu
+		WHERE
+		    role_id = #id#
+		AND
+			menu_id = #menuId#
+	</delete>
+	
+<!-- 	DELETE EXIST PRIVILEGE-->
+	<delete id = "deleteExistPriv" parameterClass="java.util.Map">
+		DELETE FROM
+		    tr_role_privilege
+		WHERE
+		    role_id = #id#
+		AND
+			privilege_id = #privilegeId#
+	</delete>
+	
+	<!-- 	UPDATE-INSERT NEW ROLE TR_MENU-->
+	<insert id = "updateNewRoleMenu" parameterClass="java.util.Map">
+		INSERT INTO
+		    tr_role_menu(
+		    	role_menu_id,
+		    	role_id,
+		    	menu_id,
+		    	description,
+		    	created_by,
+		    	create_date,
+		    	updated_by,
+		    	update_date
+		    )
+		VALUES(
+				TR_ROLE_MENU_SEQ.NEXTVAL,
+				#id#,
+				#menuId#,
+				'',
+				1,
+				SYSDATE,
+				'',
+				''
+		)
+	</insert>	
+	
+<!-- 	UPDATE-INSERT NEW ROLE TR_PRIVILEGE -->
+	<insert id = "updateNewRolePriv" parameterClass="java.util.Map">
+		INSERT INTO
+		    tr_role_privilege(
+		    	role_privilege_id,
+		    	role_id,
+		    	privilege_id,
+		    	description,
+		    	created_by,
+		    	create_date,
+		    	updated_by,
+		    	update_date
+		    )
+		VALUES(
+				TR_ROLE_PRIVILEGE_SEQ.NEXTVAL,
+				#id#,
+				#privilegeId#,
+				'',
+				1,
+				sysdate,
+				'',
+				''
+		)
+	</insert>
+	
+</sqlMap>

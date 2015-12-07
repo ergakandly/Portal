@@ -1,0 +1,449 @@
+<!DOCTYPE sqlMap
+PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="list">
+
+<!-- 	SELECT -->
+
+	<select id="getProvince" resultClass="com.hris.portal.model.PortalProvinceBean">
+		SELECT 
+			province_id	AS provinceId, 
+			province	AS provinceName
+		FROM 
+			ms_province
+		ORDER BY
+		    province_id
+	</select>
+	
+	<select id="getCity" resultClass="com.hris.portal.model.PortalCityBean">
+		SELECT 
+		    c.city_id AS cityId, 
+		    c.city 	AS cityName,
+		    p.province AS cityProvinceName,
+		    c.province_id AS cityProvinceId
+		FROM 
+		    ms_city c
+		    join ms_province p
+		    on p.province_id = c.province_id
+		ORDER BY
+		    c.city_id
+	</select>
+	
+	<select id="getMajor" resultClass="com.hris.portal.model.PortalMajorBean">
+		SELECT
+			major_id 	AS majorId, 
+			major 		AS majorName,
+			description	AS description
+		FROM 
+			ms_major
+		ORDER BY
+		    major_id
+	</select>
+	
+	<!-- EXIST -->
+	<select id="getDepartment" resultClass="com.hris.portal.model.PortalDepartmentBean">
+		SELECT
+		    department_id 	AS departmentId,
+		    department 		AS msDepartmentName,
+		    description		AS description
+		FROM
+		    ms_department
+		ORDER BY
+		    department_id
+	</select>
+	
+	<select id="getLocation" resultClass="com.hris.portal.model.PortalLocationBean">
+		SELECT 
+			location_id AS locationId, 
+			location 	AS locationName,
+		    description	AS description
+		FROM
+			ms_location
+		ORDER BY
+		    location_id
+	</select>
+	
+	<select id = "getPrivilege" resultClass="com.hris.portal.model.PortalPrivilegeBean" parameterClass="java.lang.String">
+		SELECT
+		    privilege_id 	AS privilegeId,
+		    privilege 		AS privilegeName,
+		    description		AS description
+		FROM
+		    ms_privilege
+		ORDER BY
+		    privilege_id
+	</select>
+	
+	<select id="getPosition" resultClass="com.hris.portal.model.PortalPositionBean">
+		SELECT 
+			position_id AS positionId, 
+			position 	AS positionName,
+			description AS description
+		FROM 
+			ms_position
+		ORDER BY
+		    position_id
+	</select>
+	
+	<select id="getBank" resultClass="com.hris.portal.model.PortalBankBean">
+		SELECT 
+			bank_id AS bankId, 
+			bank 	AS bankName,
+		    description		AS description
+		FROM 
+			ms_bank
+		ORDER BY
+		    bank_id
+	</select>
+	
+<!-- 	INSERT  -->
+	
+	<insert id = "insertProvince" parameterClass="java.util.Map">
+		INSERT INTO
+		    MS_PROVINCE(
+		    	province_id,
+		    	province,
+		    	created_by,
+		    	create_date,
+		    	updated_by,
+		    	update_date
+		    )
+		VALUES(
+				MS_PROVINCE_SEQ.NEXTVAL,
+				#provinceName#,
+				#createdBy#,
+				SYSDATE,
+				'',
+				''
+		)
+	</insert>
+	
+	<insert id = "insertCity" parameterClass="java.util.Map">
+		INSERT INTO
+		    MS_CITY(
+		    	city_id,
+		    	city,
+		    	province_id,
+		    	created_by,
+		    	create_date,
+		    	updated_by,
+		    	update_date
+		    )
+		VALUES(
+				MS_CITY_SEQ.NEXTVAL,
+				#cityName#,
+				#cityProvinceId#,
+				#createdBy#,
+				SYSDATE,
+				'',
+				''
+		)
+	</insert>
+	
+	<insert id = "insertMajor" parameterClass="java.util.Map">
+		INSERT INTO
+		    MS_MAJOR(
+		    	major_id,
+		    	major,
+		    	description,
+		    	created_by,
+		    	create_date,
+		    	updated_by,
+		    	update_date
+		    )
+		VALUES(
+				MS_MAJOR_SEQ.NEXTVAL,
+				#majorName#,
+				#description#,
+				#createdBy#,
+				SYSDATE,
+				'',
+				''
+		)
+	</insert>
+	
+	<insert id = "insertDepartment" parameterClass="java.util.Map">
+		INSERT INTO
+		    MS_DEPARTMENT(
+		    	department_id,
+		    	department,
+		    	description,
+		    	created_by,
+		    	create_date,
+		    	updated_by,
+		    	update_date
+		    )
+		VALUES(
+				MS_DEPARTMENT_SEQ.NEXTVAL,
+				#msDepartmentName#,
+				#description#,
+				#createdBy#,
+				SYSDATE,
+				'',
+				''
+		)
+	</insert>
+	
+	<insert id = "insertLocation" parameterClass="java.util.Map">
+		INSERT INTO
+		    MS_LOCATION(
+		    	location_id,
+		    	location,
+		    	description,
+		    	created_by,
+		    	create_date,
+		    	updated_by,
+		    	update_date
+		    )
+		VALUES(
+				MS_LOCATION_SEQ.NEXTVAL,
+				#locationName#,
+				#description#,
+				#createdBy#,
+				SYSDATE,
+				'',
+				''
+		)
+	</insert>
+	
+	<insert id = "insertPrivilege" parameterClass="java.util.Map">
+		INSERT INTO
+		    MS_PRIVILEGE(
+		    	privilege_id,
+		    	privilege,
+		    	description,
+		    	created_by,
+		    	create_date,
+		    	updated_by,
+		    	update_date
+		    )
+		VALUES(
+				MS_PRIVILEGE_SEQ.NEXTVAL,
+				#privilegeName#,
+				#description#,
+				#createdBy#,
+				SYSDATE,
+				'',
+				''
+		)
+	</insert>
+	
+	<insert id = "insertPosition" parameterClass="java.util.Map">
+		INSERT INTO
+		    MS_POSITION(
+		    	position_id,
+		    	position,
+		    	description,
+		    	created_by,
+		    	create_date,
+		    	updated_by,
+		    	update_date
+		    )
+		VALUES(
+				MS_POSITION_SEQ.NEXTVAL,
+				#positionName#,
+				#description#,
+				#createdBy#,
+				SYSDATE,
+				'',
+				''
+		)
+	</insert>
+	
+	<insert id = "insertBank" parameterClass="java.util.Map">
+		INSERT INTO
+		    MS_BANK(
+		    	bank_id,
+		    	bank,
+		    	description,
+		    	created_by,
+		    	create_date,
+		    	updated_by,
+		    	update_date
+		    )
+		VALUES(
+				MS_BANK_SEQ.NEXTVAL,
+				#bankName#,
+				#description#,
+				#createdBy#,
+				SYSDATE,
+				'',
+				''
+		)
+	</insert>
+	
+<!-- 	DELETE -->
+
+	<delete id = "deleteProvince" parameterClass="java.lang.String">
+		DELETE FROM
+		    ms_province
+		WHERE
+		    province_id = #id#
+	</delete>
+	
+	<delete id = "deleteCity" parameterClass="java.lang.String">
+		DELETE FROM
+		    ms_city
+		WHERE
+		    city_id = #id#
+	</delete>
+	
+	<delete id = "deleteMajor" parameterClass="java.lang.String">
+		DELETE FROM
+		    ms_major
+		WHERE
+		    major_id = #id#
+	</delete>
+	
+	<delete id = "deleteDepartment" parameterClass="java.lang.String">
+		DELETE FROM
+		    ms_department
+		WHERE
+		    department_id = #id#
+	</delete>
+	
+	<delete id = "deleteLocation" parameterClass="java.lang.String">
+		DELETE FROM
+		    ms_location
+		WHERE
+		    location_id = #id#
+	</delete>
+	
+	<delete id = "deletePrivilege" parameterClass="java.lang.String">
+		DELETE FROM
+		    ms_privilege
+		WHERE
+		    privilege_id = #id#
+	</delete>
+	
+	<delete id = "deletePosition" parameterClass="java.lang.String">
+		DELETE FROM
+		    ms_position
+		WHERE
+		    position_id = #id#
+	</delete>
+	
+	<delete id = "deleteBank" parameterClass="java.lang.String">
+		DELETE FROM
+		    ms_bank
+		WHERE
+		    bank_id = #id#
+	</delete>
+	
+<!-- 	EDIT PASSWORD -->
+	<update id = "editPassword" parameterClass="java.util.Map">
+		UPDATE
+		    ms_user
+		SET
+		    password = GET_HASH(#newPass#),
+		    updated_by = #updatedBy#,
+		    update_date = sysdate
+		WHERE 
+		    username = #userName#
+	</update>
+	
+<!-- 	EDIT PROVINCE -->
+	<update id = "editProvince" parameterClass="java.util.Map">
+		UPDATE
+		    ms_province
+		SET
+		    province = #provinceName#,
+		    updated_by = #updatedBy#,
+		    update_date = sysdate
+		WHERE 
+		    province_id = #id#
+	</update>
+	
+<!-- 	EDIT CITY -->
+	<update id = "editCity" parameterClass="java.util.Map">
+		UPDATE
+		    ms_city
+		SET
+		    city = #cityName#,
+		    province_id = #cityProvinceId#,
+		    updated_by = #updatedBy#,
+		    update_date = sysdate
+		WHERE 
+		    city_id = #id#
+	</update>	
+	
+<!-- 	EDIT MAJOR -->
+	<update id = "editMajor" parameterClass="java.util.Map">
+		UPDATE
+		    ms_major
+		SET
+		    major = #majorName#,
+		    description = #description#,
+		    updated_by = #updatedBy#,
+		    update_date = sysdate
+		WHERE 
+		    major_id = #id#
+	</update>	
+
+<!-- 	EDIT DEPARTMENT -->
+	<update id = "editDepartment" parameterClass="java.util.Map">
+		UPDATE
+		    ms_department
+		SET
+		    department = #msDepartmentName#,
+		    description = #description#,
+		    updated_by = #updatedBy#,
+		    update_date = sysdate
+		WHERE 
+		    department_id = #id#
+	</update>	
+
+<!-- 	EDIT LOCATION -->
+	<update id = "editLocation" parameterClass="java.util.Map">
+		UPDATE
+		    ms_location
+		SET
+		    location = #locationName#,
+		    description = #description#,
+		    updated_by = #updatedBy#,
+		    update_date = sysdate
+		WHERE 
+		    location_id = #id#
+	</update>	
+
+<!-- 	EDIT PRIVILEGE -->
+	<update id = "editPrivilege" parameterClass="java.util.Map">
+		UPDATE
+		    ms_privilege
+		SET
+		    privilege = #privilegeName#,
+		    description = #description#,
+		    updated_by = #updatedBy#,
+		    update_date = sysdate
+		WHERE 
+		    privilege_id = #id#
+	</update>	
+
+<!-- 	EDIT POSITION -->
+	<update id = "editPosition" parameterClass="java.util.Map">
+		UPDATE
+		    ms_position
+		SET
+		    position = #positionName#,
+		    description = #description#,
+		    updated_by = #updatedBy#,
+		    update_date = sysdate
+		WHERE 
+		    position_id = #id#
+	</update>	
+
+<!-- 	EDIT BANK -->
+	<update id = "editBank" parameterClass="java.util.Map">
+		UPDATE
+		    ms_bank
+		SET
+		    bank = #bankName#,
+		    description = #description#,
+		    updated_by = #updatedBy#,
+		    update_date = sysdate
+		WHERE 
+		    bank_id = #id#
+	</update>	
+
+</sqlMap>
