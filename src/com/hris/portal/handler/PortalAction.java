@@ -24,7 +24,6 @@ public class PortalAction extends Action {
 	String userAction;
 	String passAction;
 	String userIdAction;
-	String parameter;
 	
 	@Override
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
@@ -46,27 +45,27 @@ public class PortalAction extends Action {
 			if (manager.isAuthorized(user[0], user[1])) {
 				//parameter yang akan dikirim
 			    System.out.println("\nPORTAL paramdikirim: "+ param);
-			    request.setAttribute("zx", param);
-			    parameter = param;
 			    
 				System.out.println("PORTAL Set session "+user[0]+".");
-				HttpSession session = request.getSession();
+				HttpSession session = request.getSession(false);
 				session.setAttribute("username", user[0]);
 				session.setAttribute("password", user[1]);
 				session.setAttribute("roleId", user[2]);
 				session.setAttribute("userId", user[3]);
 				session.setAttribute("employeeId", user[4]);
 				session.setAttribute("employeeName", user[5]);
+				request.setAttribute("zx", "?zx="+PortalUtil.createParameter(session));
 				
-				System.out.println("PORTAL Kembali ke halaman Dahboard");
+				System.out.println("PORTAL Kembali ke halaman Dashboard");
 				hForm.setListPortalModulBean(manager.getMasterModul());
 				
-				if("admin".equalsIgnoreCase(hForm.getPortalUserBean().getUserName())){
-					return mapping.findForward("dashboardAdmin");
-				}else if("super".equalsIgnoreCase(hForm.getPortalUserBean().getUserName())){
+				if("super".equalsIgnoreCase(session.getAttribute("username").toString())){
+					hForm.setListPortalMasterRoleMenu(manager.getMenuRoleName(session.getAttribute("roleId").toString()));
 					return mapping.findForward("dashboardSuper");
-				}else {
-					hForm.setListPortalMasterRoleMenu(manager.getMenuRoleName(hForm.getPortalUserBean().getUserRoleId()));
+				} else if ("admin".equalsIgnoreCase(session.getAttribute("username").toString())){
+					return mapping.findForward("dashboardAdmin");
+				} else {
+					hForm.setListPortalMasterRoleMenu(manager.getMenuRoleName(session.getAttribute("roleId").toString()));
 					System.out.println(hForm.getPortalMasterRoleBean().getUrlMenuRole());
 					return mapping.findForward("dashboardUser");
 				}
@@ -80,7 +79,6 @@ public class PortalAction extends Action {
 		    	System.out.println("PORTAL Kembali ke halaman login.");
 			}
 		}
-		hForm.setParameter(parameter);
 		
 		String task = hForm.getTask();
 		System.out.println("Tasknya : " + task);
@@ -98,8 +96,6 @@ public class PortalAction extends Action {
 				param = hForm.getPortalUserBean().getUserName()+"##"+password+"##"+
 							   hForm.getPortalUserBean().getUserRoleId()+"##"+hForm.getPortalUserBean().getUserId()+"##"+
 							   hForm.getPortalUserBean().getUserEmployeeId()+"##"+hForm.getPortalUserBean().getEmployeeName();
-				parameter = PortalUtil.encrypt(param);
-				request.setAttribute("zx", PortalUtil.encrypt(param));
 				
 				//parameter yang akan dikirim
 			    System.out.println("\nPORTAL paramdikirim: "+ param);
@@ -114,6 +110,7 @@ public class PortalAction extends Action {
 				session.setAttribute("userId", hForm.getPortalUserBean().getUserId());
 				session.setAttribute("employeeId", hForm.getPortalUserBean().getUserEmployeeId());
 				session.setAttribute("employeeName", hForm.getPortalUserBean().getEmployeeName());
+				request.setAttribute("zx", "?zx="+PortalUtil.createParameter(session));
 				
 				manager.updateStatusLogin(session.getAttribute("username").toString(), 1);
 				

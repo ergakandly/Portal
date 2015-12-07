@@ -10,7 +10,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <%@include file="PartBootstrap.jsp"%>
 
-<title>Dashboard Admin</title>
+<title>Dashboard Super Admin</title>
 </head>
 
 <script type="text/javascript">
@@ -72,7 +72,7 @@
 								   int max = urlstr.length();
 								   
 									if(urlstr.contains("location"))
-										newurl = urlstr.substring(0, max-1) + "?zx=" + request.getAttribute("zx") + "'"; 
+										newurl = urlstr.substring(0, max-1) + request.getAttribute("zx") + "'";
 									else
 										newurl = url.toString(); %>
 								<button class="btn btn-default iconDashboard" type="button"

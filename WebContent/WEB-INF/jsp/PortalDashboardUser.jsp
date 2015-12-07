@@ -59,7 +59,7 @@
 										   int max = urlstr.length();
 										   
 											if(urlstr.contains("location"))
-												newurl = urlstr.substring(0, max-1) + "?zx=" + request.getAttribute("zx") + "'"; 
+												newurl = urlstr.substring(0, max-1) + request.getAttribute("zx") + "'"; 
 											else
 												newurl = url.toString(); %>
 										<button class="btn btn-default iconDashboard" type="button"

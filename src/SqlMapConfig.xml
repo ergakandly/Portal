@@ -26,13 +26,13 @@ PUBLIC "-//ibatis.apache.org//DTD SQL Map Config 2.0//EN"
 <!-- 			<property name="JDBC.Username" value="HR" /> -->
 <!-- 			<property name="JDBC.Password" value="HR" /> -->
 			
-			<property name="JDBC.ConnectionURL" value="jdbc:oracle:thin:@014ACE0815:1521:orcl" />
-			<property name="JDBC.Username" value="ace_hr" />
-			<property name="JDBC.Password" value="ace" />
-
-<!-- 			<property name="JDBC.ConnectionURL" value="jdbc:oracle:thin:@localhost:1521:orcl" /> -->
+<!-- 			<property name="JDBC.ConnectionURL" value="jdbc:oracle:thin:@014ACE0815:1521:orcl" /> -->
 <!-- 			<property name="JDBC.Username" value="ace_hr" /> -->
 <!-- 			<property name="JDBC.Password" value="ace" /> -->
+
+			<property name="JDBC.ConnectionURL" value="jdbc:oracle:thin:@localhost:1521:orcl" />
+			<property name="JDBC.Username" value="ace_hr" />
+			<property name="JDBC.Password" value="ace" />
 
 		</dataSource>
 		<!-- <dataSource type="JNDI"> <property name="context.java.naming.factory.initial" 
