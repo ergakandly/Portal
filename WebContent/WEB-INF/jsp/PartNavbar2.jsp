@@ -118,8 +118,13 @@
 		<ul class="nav navbar-nav side-nav">
 
 			
-				<li><a href="javascript:flyToPage('backToList','','1','1')"><i
-						class="fa fa-list"></i> Master</a></li>
+			<li><a href="javascript:flyToPage('masterProvince');"><i class="fa fa-list"></i> Province</a></li>
+			<li><a href="javascript:flyToPage('masterCity');"><i class="fa fa-list"></i> City</a></li>
+			<li><a href="javascript:flyToPage('mastermajor');"><i class="fa fa-list"></i> Major</a></li>
+			<li><a href="javascript:flyToPage('masterDepartment');"><i class="fa fa-list"></i> Department</a></li>
+			<li><a href="javascript:flyToPage('masterLocation');"><i class="fa fa-list"></i> Location</a></li>
+			<li><a href="javascript:flyToPage('masterPosition');"><i class="fa fa-list"></i> Position</a></li>
+			<li><a href="javascript:flyToPage('masterBank');"><i class="fa fa-list"></i> Bank</a></li>
 			
 
 		</ul>

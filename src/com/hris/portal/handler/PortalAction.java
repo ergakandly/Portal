@@ -612,6 +612,256 @@ public class PortalAction extends Action {
 			hForm.setIsDeleteMasterOthers("0");
 			System.out.println("Berhasil Privilege");
 			return mapping.findForward("masterPrivilege");
+		}else if ("masterBank".equalsIgnoreCase(task)){
+			hForm.setUserExist(userAction);
+			hForm.setPassExist(passAction);
+			hForm.setUserIdExist(userIdAction);
+
+			System.out.println("USER : "+hForm.getUserExist());
+
+			System.out.println("Isdelete luar: "+hForm.getIsDeleteMasterOthers());
+			System.out.println("ID dapat: "+hForm.getId());
+			
+			if("bank".equals(hForm.getIsDeleteMasterOthers())){
+				manager.deleteBank(hForm.getId());
+			}
+			
+			if(!"".equals(hForm.getPortalBankBean().getBankName()) && "undefined".equals(hForm.getId())){
+				System.out.println("Sebenernya: "+hForm.getId());
+				System.out.println("Bank Luar: "+hForm.getPortalBankBean().getBankName());
+				manager.insertNewBank(hForm.getPortalBankBean().getBankName(), hForm.getPortalBankBean().getDescription(), hForm.getUserIdExist());
+				hForm.getPortalBankBean().setBankName("");
+				hForm.getPortalBankBean().setDescription("");
+				hForm.setId("undefined");
+			}
+			
+			if(!"".equals(hForm.getPortalBankBean().getBankName()) && !"undefined".equals(hForm.getId())){
+				System.out.println("Edit Bank Luar "+hForm.getPortalBankBean().getBankName()+" dan ID "+hForm.getId());
+				manager.editBank(hForm.getId(), hForm.getPortalBankBean().getBankName(), hForm.getPortalBankBean().getDescription(), hForm.getUserIdExist());
+				hForm.getPortalBankBean().setBankName("");
+				hForm.getPortalBankBean().setDescription("");
+				hForm.setId("undefined");
+			}
+			
+			hForm.setListPortalBank(manager.getAllBank());
+			
+			hForm.setIsDeleteMasterOthers("0");
+			System.out.println("Berhasil Bank");
+			return mapping.findForward("masterBank");
+		}else if ("masterCity".equalsIgnoreCase(task)){
+			hForm.setUserExist(userAction);
+			hForm.setPassExist(passAction);
+			hForm.setUserIdExist(userIdAction);
+
+			System.out.println("USER : "+hForm.getUserExist());
+
+			System.out.println("Isdelete luar: "+hForm.getIsDeleteMasterOthers());
+			System.out.println("ID dapat: "+hForm.getId());
+			
+			if("city".equals(hForm.getIsDeleteMasterOthers())){
+				manager.deleteCity(hForm.getId());
+			}
+			
+			if(!"".equals(hForm.getPortalCityBean().getCityName()) && "undefined".equals(hForm.getId())){
+				System.out.println("Sebenernya: "+hForm.getId());
+				System.out.println("City Luar: "+hForm.getPortalProvinceBean().getProvinceName());
+				manager.insertNewCity(hForm.getPortalCityBean().getCityName(), hForm.getPortalCityBean().getCityProvinceId(), hForm.getUserIdExist());
+				hForm.getPortalCityBean().setCityName("");
+				hForm.getPortalCityBean().setCityProvinceId("");
+				hForm.setId("undefined");
+			}
+			
+			if(!"".equals(hForm.getPortalCityBean().getCityName()) && !"undefined".equals(hForm.getId())){
+				System.out.println("Edit City Luar "+hForm.getPortalCityBean().getCityName()+" dan ID "+hForm.getId());
+				manager.editCity(hForm.getId(), hForm.getPortalCityBean().getCityProvinceId(), hForm.getPortalCityBean().getCityName(), hForm.getUserIdExist());
+				hForm.getPortalCityBean().setCityName("");
+				hForm.getPortalCityBean().setCityProvinceId("");
+				hForm.setId("undefined");
+			}
+			
+			hForm.setListPortalCity(manager.getAllCity());
+			
+			hForm.setIsDeleteMasterOthers("0");
+			System.out.println("Berhasil City");
+			return mapping.findForward("masterCity");
+		}else if ("masterDepartment".equalsIgnoreCase(task)){
+			hForm.setUserExist(userAction);
+			hForm.setPassExist(passAction);
+			hForm.setUserIdExist(userIdAction);
+
+			System.out.println("USER : "+hForm.getUserExist());
+
+			System.out.println("Isdelete luar: "+hForm.getIsDeleteMasterOthers());
+			System.out.println("ID dapat: "+hForm.getId());
+			
+			if("department".equals(hForm.getIsDeleteMasterOthers())){
+				manager.deleteDepartment(hForm.getId());
+			}
+			
+			if(!"".equals(hForm.getPortalDepartmentBean().getMsDepartmentName()) && "undefined".equals(hForm.getId())){
+				System.out.println("Sebenernya: "+hForm.getId());
+				System.out.println("Department Luar: "+hForm.getPortalDepartmentBean().getMsDepartmentName());
+				manager.insertNewDepartment(hForm.getPortalDepartmentBean().getMsDepartmentName(), hForm.getPortalDepartmentBean().getDescription(), hForm.getUserIdExist());
+				hForm.getPortalDepartmentBean().setMsDepartmentName("");
+				hForm.getPortalDepartmentBean().setDescription("");
+				hForm.setId("undefined");
+			}
+			
+			if(!"".equals(hForm.getPortalDepartmentBean().getMsDepartmentName()) && !"undefined".equals(hForm.getId())){
+				System.out.println("Edit Department Luar "+hForm.getPortalDepartmentBean().getMsDepartmentName()+" dan ID "+hForm.getId());
+				manager.editDepartment(hForm.getId(), hForm.getPortalDepartmentBean().getMsDepartmentName(), hForm.getPortalDepartmentBean().getDescription(), hForm.getUserIdExist());
+				hForm.getPortalDepartmentBean().setMsDepartmentName("");
+				hForm.getPortalDepartmentBean().setDescription("");
+				hForm.setId("undefined");
+			}
+			
+			hForm.setListPortalDepartment(manager.getAllDepartment());
+			
+			hForm.setIsDeleteMasterOthers("0");
+			System.out.println("Berhasil Department");
+			return mapping.findForward("masterDepartment");
+		}else if ("masterLocation".equalsIgnoreCase(task)){
+			hForm.setUserExist(userAction);
+			hForm.setPassExist(passAction);
+			hForm.setUserIdExist(userIdAction);
+
+			System.out.println("USER : "+hForm.getUserExist());
+
+			System.out.println("Isdelete luar: "+hForm.getIsDeleteMasterOthers());
+			System.out.println("ID dapat: "+hForm.getId());
+			
+			if("location".equals(hForm.getIsDeleteMasterOthers())){
+				manager.deleteLocation(hForm.getId());
+			}
+			
+			if(!"".equals(hForm.getPortalLocationBean().getLocationName()) && "undefined".equals(hForm.getId())){
+				System.out.println("Sebenernya: "+hForm.getId());
+				System.out.println("Location Luar: "+hForm.getPortalLocationBean().getLocationName());
+				manager.insertNewLocation(hForm.getPortalLocationBean().getLocationName(), hForm.getPortalLocationBean().getDescription(), hForm.getUserIdExist());
+				hForm.getPortalLocationBean().setLocationName("");
+				hForm.getPortalLocationBean().setDescription("");
+				hForm.setId("undefined");
+			}
+			
+			if(!"".equals(hForm.getPortalLocationBean().getLocationName()) && !"undefined".equals(hForm.getId())){
+				System.out.println("Edit Location Luar "+hForm.getPortalLocationBean().getLocationName()+" dan ID "+hForm.getId());
+				manager.editLocation(hForm.getId(), hForm.getPortalLocationBean().getLocationName(), hForm.getPortalLocationBean().getDescription(), hForm.getUserIdExist());
+				hForm.getPortalLocationBean().setLocationName("");
+				hForm.getPortalLocationBean().setDescription("");
+				hForm.setId("undefined");
+			}
+			
+			hForm.setListPortalLocation(manager.getAllLocation());
+			
+			hForm.setIsDeleteMasterOthers("0");
+			System.out.println("Berhasil Location");
+			return mapping.findForward("masterLocation");
+		}else if ("mastermajor".equalsIgnoreCase(task)){
+			hForm.setUserExist(userAction);
+			hForm.setPassExist(passAction);
+			hForm.setUserIdExist(userIdAction);
+
+			System.out.println("USER : "+hForm.getUserExist());
+
+			System.out.println("Isdelete luar: "+hForm.getIsDeleteMasterOthers());
+			System.out.println("ID dapat: "+hForm.getId());
+			
+			if("major".equals(hForm.getIsDeleteMasterOthers())){
+				manager.deleteMajor(hForm.getId());
+			}
+			
+			if(!"".equals(hForm.getPortalMajorBean().getMajorName()) && "undefined".equals(hForm.getId())){
+				System.out.println("Sebenernya: "+hForm.getId());
+				System.out.println("Major Luar: "+hForm.getPortalMajorBean().getMajorName());
+				manager.insertNewMajor(hForm.getPortalMajorBean().getMajorName(), hForm.getPortalMajorBean().getDescription(), hForm.getUserIdExist());
+				hForm.getPortalMajorBean().setMajorName("");
+				hForm.getPortalMajorBean().setDescription("");
+				hForm.setId("undefined");
+			}
+			
+			if(!"".equals(hForm.getPortalMajorBean().getMajorName()) && !"undefined".equals(hForm.getId())){
+				System.out.println("Edit Major Luar "+hForm.getPortalMajorBean().getMajorName()+" dan ID "+hForm.getId());
+				manager.editMajor(hForm.getId(), hForm.getPortalMajorBean().getMajorName(), hForm.getPortalMajorBean().getDescription(), hForm.getUserIdExist());
+				hForm.getPortalMajorBean().setMajorName("");
+				hForm.getPortalMajorBean().setDescription("");
+				hForm.setId("undefined");
+			}
+			
+			hForm.setListPortalMajor(manager.getAllMajor());
+			
+			hForm.setIsDeleteMasterOthers("0");
+			System.out.println("Berhasil Major");
+			return mapping.findForward("mastermajor");
+		}else if ("masterPosition".equalsIgnoreCase(task)){
+			hForm.setUserExist(userAction);
+			hForm.setPassExist(passAction);
+			hForm.setUserIdExist(userIdAction);
+
+			System.out.println("USER : "+hForm.getUserExist());
+
+			System.out.println("Isdelete luar: "+hForm.getIsDeleteMasterOthers());
+			System.out.println("ID dapat: "+hForm.getId());
+			
+			if("position".equals(hForm.getIsDeleteMasterOthers())){
+				manager.deletePosition(hForm.getId());
+			}
+			
+			if(!"".equals(hForm.getPortalPositionBean().getPositionName()) && "undefined".equals(hForm.getId())){
+				System.out.println("Sebenernya: "+hForm.getId());
+				System.out.println("Position Luar: "+hForm.getPortalPositionBean().getPositionName());
+				manager.insertNewPosition(hForm.getPortalPositionBean().getPositionName(), hForm.getPortalPositionBean().getDescription(), hForm.getUserIdExist());
+				hForm.getPortalPositionBean().setPositionName("");
+				hForm.getPortalPositionBean().setDescription("");
+				hForm.setId("undefined");
+			}
+			
+			if(!"".equals(hForm.getPortalPositionBean().getPositionName()) && !"undefined".equals(hForm.getId())){
+				System.out.println("Edit Position Luar "+hForm.getPortalPositionBean().getPositionName()+" dan ID "+hForm.getId());
+				manager.editPosition(hForm.getId(), hForm.getPortalPositionBean().getPositionName(), hForm.getPortalPositionBean().getDescription(), hForm.getUserIdExist());
+				hForm.getPortalPositionBean().setPositionName("");
+				hForm.getPortalPositionBean().setDescription("");
+				hForm.setId("undefined");
+			}
+			
+			hForm.setListPortalPosition(manager.getAllPosition());
+			
+			hForm.setIsDeleteMasterOthers("0");
+			System.out.println("Berhasil Position");
+			return mapping.findForward("masterPosition");
+		}else if ("masterProvince".equalsIgnoreCase(task)){
+			hForm.setUserExist(userAction);
+			hForm.setPassExist(passAction);
+			hForm.setUserIdExist(userIdAction);
+
+			System.out.println("USER : "+hForm.getUserExist());
+
+			System.out.println("Isdelete luar: "+hForm.getIsDeleteMasterOthers());
+			System.out.println("ID dapat: "+hForm.getId());
+			
+			if("province".equals(hForm.getIsDeleteMasterOthers())){
+				manager.deleteProvince(hForm.getId());
+			}
+			
+			if(!"".equals(hForm.getPortalProvinceBean().getProvinceName()) && "undefined".equals(hForm.getId())){
+				System.out.println("Sebenernya: "+hForm.getId());
+				System.out.println("Province Luar: "+hForm.getPortalProvinceBean().getProvinceName());
+				manager.insertNewProvince(hForm.getPortalProvinceBean().getProvinceName(), hForm.getUserIdExist());
+				hForm.getPortalProvinceBean().setProvinceName("");
+				hForm.setId("undefined");
+			}
+			
+			if(!"".equals(hForm.getPortalProvinceBean().getProvinceName()) && !"undefined".equals(hForm.getId())){
+				System.out.println("Edit Province Luar "+hForm.getPortalProvinceBean().getProvinceName()+" dan ID "+hForm.getId());
+				manager.editProvince(hForm.getId(), hForm.getPortalProvinceBean().getProvinceName(), hForm.getUserIdExist());
+				hForm.getPortalProvinceBean().setProvinceName("");
+				hForm.setId("undefined");
+			}
+			
+			hForm.setListPortalProvince(manager.getAllProvince());
+			
+			hForm.setIsDeleteMasterOthers("0");
+			System.out.println("Berhasil Province");
+			return mapping.findForward("masterProvince");
 		}else if ("editModule".equalsIgnoreCase(task)){
 			hForm.setUserExist(userAction);
 			hForm.setPassExist(passAction);

@@ -48,7 +48,7 @@
 							</ul>
 							<!-- END BREADCRUMB -->
 							<br /> <br /> <br />
-
+							<img alt="Departments - Total Attendance Graph" src="/HRIS_Portal/chart.do">
 							<!-- ICON MENU -->
 							<div class="tengah">
 								<logic:notEmpty name="PortalForm" property="listPortalMasterRoleMenu">

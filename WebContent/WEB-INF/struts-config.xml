@@ -24,8 +24,18 @@
 			<forward name="success" path="/WEB-INF/jsp/PortalLogin.jsp"></forward>
 			<forward name="kirimEmail" path="/WEB-INF/jsp/PortalKirimEmail.jsp"></forward>
 			<forward name="masterPrivilege" path="/WEB-INF/jsp/PortalMasterPrivilege.jsp"></forward>
+			<forward name="masterBank" path="/WEB-INF/jsp/PortalMasterBank.jsp"></forward>
+			<forward name="masterCity" path="/WEB-INF/jsp/PortalMasterCity.jsp"></forward>
+			<forward name="masterDepartment" path="/WEB-INF/jsp/PortalMasterDepartment.jsp"></forward>
+			<forward name="masterLocation" path="/WEB-INF/jsp/PortalMasterLocation.jsp"></forward>
+			<forward name="mastermajor" path="/WEB-INF/jsp/PortalMasterMajor.jsp"></forward>
+			<forward name="masterPosition" path="/WEB-INF/jsp/PortalMasterPosition.jsp"></forward>
+			<forward name="masterProvince" path="/WEB-INF/jsp/PortalMasterProvince.jsp"></forward>
 <!-- 			<forward name="success" path="/WEB-INF/jsp/PortalUserChangePassword.jsp"></forward> -->
  		</action>
+ 		
+ 		<action path="/chart" type="com.hris.portal.handler.ChartAction"/>
+ 		
 	</action-mappings>
 
 	<!-- UNTUK VALIDATOR -->
