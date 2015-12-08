@@ -7,6 +7,7 @@ import java.util.Map;
 
 import com.hris.portal.exception.PortalException;
 import com.hris.portal.ibatis.IbatisHelper;
+import com.hris.portal.model.NotificationBean;
 import com.hris.portal.model.PortalBankBean;
 import com.hris.portal.model.PortalBean;
 import com.hris.portal.model.PortalCityBean;
@@ -19,6 +20,7 @@ import com.hris.portal.model.PortalPositionBean;
 import com.hris.portal.model.PortalPrivilegeBean;
 import com.hris.portal.model.PortalProvinceBean;
 import com.hris.portal.model.PortalUserBean;
+import com.hris.portal.model.SpecialDateBean;
 import com.ibatis.sqlmap.client.SqlMapClient;
 
 public class PortalManager {
@@ -28,12 +30,103 @@ public class PortalManager {
 		ibatis = new IbatisHelper().getSqlMapInstance();
 	}
 
-	// ASSIGN ROLE
+	public Integer countPendingLeaveApproval(String employeeId) {
+		Integer result = null;
 
+		try {
+			result = (Integer) ibatis.queryForObject("notification.countPendingLeaveApproval", employeeId);
+		} catch (SQLException s) {
+			s.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	public Integer countPendingExtraQuotaApproval(String employeeId) {
+		Integer result = null;
+
+		try {
+			result = (Integer) ibatis.queryForObject("notification.countPendingExtraQuotaApproval", employeeId);
+		} catch (SQLException s) {
+			s.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	public Integer countPendingAttendanceApproval(String employeeId) {
+		Integer result = null;
+
+		try {
+			result = (Integer) ibatis.queryForObject("notification.countPendingAttendanceApproval", employeeId);
+		} catch (SQLException s) {
+			s.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	public List<SpecialDateBean> getUpcomingSpecialDate(){
+		
+		List<SpecialDateBean> result=null;
+		
+		try {
+			result=ibatis.queryForList("notification.getUpcomingMassLeave", "");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+	
+	public List<NotificationBean> getRecentlyApprovedLeave(String employeeId) {
+		List<NotificationBean> list = null;
+
+		try {
+			list = ibatis.queryForList("notification.getRecentlyApprovedLeave", employeeId);
+		} catch (SQLException s) {
+			s.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	public List<NotificationBean> getRecentlyApprovedExtraLeave(String employeeId) {
+		List<NotificationBean> list = null;
+
+		try {
+			list = ibatis.queryForList("notification.getRecentlyApprovedExtraLeave", employeeId);
+		} catch (SQLException s) {
+			s.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	public List<NotificationBean> getRecentlyApprovedAttendance(String employeeId) {
+		List<NotificationBean> list = null;
+
+		try {
+			list = ibatis.queryForList("notification.getRecentlyApprovedAttendance", employeeId);
+		} catch (SQLException s) {
+			s.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	// ASSIGN ROLE
 	public List<PortalBean> getEmployee(String searchName, String departmentId) {
 		List<PortalBean> list = null;
 
-		Map<String,String> map = new HashMap<String,String>();
+		Map<String, String> map = new HashMap<String, String>();
 		map.put("searchName", searchName);
 		map.put("departmentId", departmentId);
 
@@ -117,7 +210,7 @@ public class PortalManager {
 
 	public void insertUser(String userName, String pass, String empId, String roleId) {
 
-		Map<String,String> map = new HashMap<String,String>();
+		Map<String, String> map = new HashMap<String, String>();
 		map.put("userName", userName);
 		map.put("pass", pass);
 		map.put("empId", empId);
@@ -218,11 +311,11 @@ public class PortalManager {
 
 	// INSERT NEW ROLE Name
 	public void insertNewRoleName(String addRoleName, String description) {
-		
-		Map<String,String> map = new HashMap<String,String>();
+
+		Map<String, String> map = new HashMap<String, String>();
 		map.put("addRoleName", addRoleName);
 		map.put("description", description);
-		
+
 		try {
 			ibatis.startTransaction();
 			ibatis.insert("employees.insertNewRoleName", map);
@@ -321,7 +414,7 @@ public class PortalManager {
 
 		icon = "glyphicon " + icon;
 
-		Map<String,String> map = new HashMap<String,String>();
+		Map<String, String> map = new HashMap<String, String>();
 		map.put("menuName", menuName);
 		map.put("urlMenu", urlMenu);
 		map.put("icon", icon);
@@ -346,18 +439,18 @@ public class PortalManager {
 			}
 		}
 	}
-	
+
 	// EDIT MODUL
-	public void editModul(String menuIdModul,String menuName, String urlMenu, String icon) {
+	public void editModul(String menuIdModul, String menuName, String urlMenu, String icon) {
 
 		icon = "glyphicon " + icon;
 
-		Map<String,String> map = new HashMap<String,String>();
+		Map<String, String> map = new HashMap<String, String>();
 		map.put("menuIdModul", menuIdModul);
 		map.put("menuName", menuName);
 		map.put("urlMenu", urlMenu);
 		map.put("icon", icon);
-		
+
 		System.out.println("menuIdModul= " + menuIdModul);
 		System.out.println("MenuName= " + menuName);
 		System.out.println("URLMenu= " + urlMenu);
@@ -400,10 +493,10 @@ public class PortalManager {
 		}
 	}
 
-	/*BEGIN MASTER OTHERS*/
-	//GET
-	
-	//PROVINCE
+	/* BEGIN MASTER OTHERS */
+	// GET
+
+	// PROVINCE
 	public List<PortalProvinceBean> getAllProvince() {
 		List<PortalProvinceBean> list = null;
 
@@ -416,8 +509,8 @@ public class PortalManager {
 		}
 		return list;
 	}
-	
-	//CITY
+
+	// CITY
 	public List<PortalCityBean> getAllCity() {
 		List<PortalCityBean> list = null;
 
@@ -430,8 +523,8 @@ public class PortalManager {
 		}
 		return list;
 	}
-	
-	//MAJOR
+
+	// MAJOR
 	public List<PortalMajorBean> getAllMajor() {
 		List<PortalMajorBean> list = null;
 
@@ -444,8 +537,8 @@ public class PortalManager {
 		}
 		return list;
 	}
-	
-	//DEPARTMENT
+
+	// DEPARTMENT
 	public List<PortalDepartmentBean> getAllDepartment() {
 		List<PortalDepartmentBean> list = null;
 
@@ -458,8 +551,8 @@ public class PortalManager {
 		}
 		return list;
 	}
-		
-	//LOCATION
+
+	// LOCATION
 	public List<PortalLocationBean> getAllLocation() {
 		List<PortalLocationBean> list = null;
 
@@ -472,8 +565,8 @@ public class PortalManager {
 		}
 		return list;
 	}
-	
-	//PRIVILEGE
+
+	// PRIVILEGE
 	public List<PortalPrivilegeBean> getAllPrivilege() {
 		List<PortalPrivilegeBean> list = null;
 
@@ -486,8 +579,8 @@ public class PortalManager {
 		}
 		return list;
 	}
-	
-	//POSITION
+
+	// POSITION
 	public List<PortalPositionBean> getAllPosition() {
 		List<PortalPositionBean> list = null;
 
@@ -500,8 +593,8 @@ public class PortalManager {
 		}
 		return list;
 	}
-	
-	//BANK
+
+	// BANK
 	public List<PortalBankBean> getAllBank() {
 		List<PortalBankBean> list = null;
 
@@ -514,19 +607,17 @@ public class PortalManager {
 		}
 		return list;
 	}
-	
-	
-	
-	//INSERT
-	
-	//PROVINCE
+
+	// INSERT
+
+	// PROVINCE
 	public void insertNewProvince(String provinceName, String createdBy) {
 		System.out.println("MANAGER province dalam jalan loohh");
-		
-		Map<String,String> map = new HashMap<String,String>();
+
+		Map<String, String> map = new HashMap<String, String>();
 		map.put("provinceName", provinceName);
 		map.put("createdBy", createdBy);
-		
+
 		try {
 			ibatis.startTransaction();
 			ibatis.insert("list.insertProvince", map);
@@ -543,16 +634,16 @@ public class PortalManager {
 			}
 		}
 	}
-	
-	//CITY
+
+	// CITY
 	public void insertNewCity(String cityName, String cityProvinceId, String createdBy) {
 		System.out.println("MANAGER CITY dalam jalan loohh");
-		
-		Map<String,String> map = new HashMap<String,String>();
+
+		Map<String, String> map = new HashMap<String, String>();
 		map.put("cityName", cityName);
 		map.put("cityProvinceId", cityProvinceId);
 		map.put("createdBy", createdBy);
-		
+
 		try {
 			ibatis.startTransaction();
 			ibatis.insert("list.insertCity", map);
@@ -569,16 +660,16 @@ public class PortalManager {
 			}
 		}
 	}
-	
-	//MAJOR
+
+	// MAJOR
 	public void insertNewMajor(String majorName, String description, String createdBy) {
 		System.out.println("MANAGER MAJOR dalam jalan loohh");
-		
-		Map<String,String> map = new HashMap<String,String>();
+
+		Map<String, String> map = new HashMap<String, String>();
 		map.put("majorName", majorName);
 		map.put("description", description);
 		map.put("createdBy", createdBy);
-		
+
 		try {
 			ibatis.startTransaction();
 			ibatis.insert("list.insertMajor", map);
@@ -595,16 +686,16 @@ public class PortalManager {
 			}
 		}
 	}
-	
-	//DEPARTMENT
+
+	// DEPARTMENT
 	public void insertNewDepartment(String msDepartmentName, String description, String createdBy) {
 		System.out.println("MANAGER Department dalam jalan loohh");
-		
-		Map<String,String> map = new HashMap<String,String>();
+
+		Map<String, String> map = new HashMap<String, String>();
 		map.put("msDepartmentName", msDepartmentName);
 		map.put("description", description);
 		map.put("createdBy", createdBy);
-		
+
 		try {
 			ibatis.startTransaction();
 			ibatis.insert("list.insertDepartment", map);
@@ -621,16 +712,16 @@ public class PortalManager {
 			}
 		}
 	}
-	
-	//LOCATION
+
+	// LOCATION
 	public void insertNewLocation(String locationName, String description, String createdBy) {
 		System.out.println("MANAGER location dalam jalan loohh");
-		
-		Map<String,String> map = new HashMap<String,String>();
+
+		Map<String, String> map = new HashMap<String, String>();
 		map.put("locationName", locationName);
 		map.put("description", description);
 		map.put("createdBy", createdBy);
-		
+
 		try {
 			ibatis.startTransaction();
 			ibatis.insert("list.insertLocation", map);
@@ -647,16 +738,16 @@ public class PortalManager {
 			}
 		}
 	}
-	
-	//PRIVILEGE
+
+	// PRIVILEGE
 	public void insertNewPrivilege(String privilegeName, String description, String createdBy) {
 		System.out.println("MANAGER PRIVILEGE dalam jalan loohh");
-		
-		Map<String,String> map = new HashMap<String,String>();
+
+		Map<String, String> map = new HashMap<String, String>();
 		map.put("privilegeName", privilegeName);
 		map.put("description", description);
 		map.put("createdBy", createdBy);
-		
+
 		try {
 			ibatis.startTransaction();
 			ibatis.insert("list.insertPrivilege", map);
@@ -669,21 +760,21 @@ public class PortalManager {
 			try {
 				ibatis.endTransaction();
 			} catch (Exception e) {
-				
+
 				e.printStackTrace();
 			}
 		}
 	}
-	
-	//POSITION
+
+	// POSITION
 	public void insertNewPosition(String positionName, String description, String createdBy) {
 		System.out.println("MANAGER POSITION dalam jalan loohh");
-		
-		Map<String,String> map = new HashMap<String,String>();
+
+		Map<String, String> map = new HashMap<String, String>();
 		map.put("positionName", positionName);
 		map.put("description", description);
 		map.put("createdBy", createdBy);
-		
+
 		try {
 			ibatis.startTransaction();
 			ibatis.insert("list.insertPosition", map);
@@ -700,16 +791,16 @@ public class PortalManager {
 			}
 		}
 	}
-	
-	//BANK
+
+	// BANK
 	public void insertNewBank(String bankName, String description, String createdBy) {
 		System.out.println("MANAGER BANK dalam jalan loohh");
-		
-		Map<String,String> map = new HashMap<String,String>();
+
+		Map<String, String> map = new HashMap<String, String>();
 		map.put("bankName", bankName);
 		map.put("description", description);
 		map.put("createdBy", createdBy);
-		
+
 		try {
 			ibatis.startTransaction();
 			ibatis.insert("list.insertBank", map);
@@ -726,11 +817,10 @@ public class PortalManager {
 			}
 		}
 	}
-	
-	
-	//DELETE
-	
-	//PROVINCE
+
+	// DELETE
+
+	// PROVINCE
 	public void deleteProvince(String id) {
 		System.out.println("Delete Province");
 		try {
@@ -749,11 +839,11 @@ public class PortalManager {
 			}
 		}
 	}
-	
-	//CITY
+
+	// CITY
 	public void deleteCity(String id) {
 		System.out.println("Delete City");
-		
+
 		try {
 			ibatis.startTransaction();
 			ibatis.delete("list.deleteCity", id);
@@ -770,8 +860,8 @@ public class PortalManager {
 			}
 		}
 	}
-	
-	//MAJOR
+
+	// MAJOR
 	public void deleteMajor(String id) {
 		System.out.println("Delete Major");
 
@@ -791,8 +881,8 @@ public class PortalManager {
 			}
 		}
 	}
-	
-	//DEPARTMENT
+
+	// DEPARTMENT
 	public void deleteDepartment(String id) {
 		System.out.println("Delete Department");
 
@@ -811,9 +901,9 @@ public class PortalManager {
 				e.printStackTrace();
 			}
 		}
-		}
-	
-	//LOCATION
+	}
+
+	// LOCATION
 	public void deleteLocation(String id) {
 		System.out.println("Delete Location");
 
@@ -833,8 +923,8 @@ public class PortalManager {
 			}
 		}
 	}
-	
-	//PRIVILEGE
+
+	// PRIVILEGE
 	public void deletePrivilege(String id) {
 		System.out.println("Delete Privilege");
 
@@ -854,8 +944,8 @@ public class PortalManager {
 			}
 		}
 	}
-	
-	//POSITION
+
+	// POSITION
 	public void deletePosition(String id) {
 		System.out.println("Delete Position");
 
@@ -875,8 +965,8 @@ public class PortalManager {
 			}
 		}
 	}
-	
-	//BANK
+
+	// BANK
 	public void deleteBank(String id) {
 		System.out.println("Delete Bank");
 
@@ -896,13 +986,12 @@ public class PortalManager {
 			}
 		}
 	}
-	
-	
-	//EDIT PASSWORD
-	
+
+	// EDIT PASSWORD
+
 	public void editPassword(String userName, String newPass, String updatedBy) {
 
-		Map<String,String> map = new HashMap<String,String>();
+		Map<String, String> map = new HashMap<String, String>();
 		map.put("userName", userName);
 		map.put("newPass", newPass);
 		map.put("updatedBy", updatedBy);
@@ -923,15 +1012,15 @@ public class PortalManager {
 			}
 		}
 	}
-	
-	//EDIT PROVINCE
+
+	// EDIT PROVINCE
 	public void editProvince(String id, String provinceName, String updatedBy) {
 
-		System.out.println("id "+id);
-		System.out.println("provname "+provinceName);
-		System.out.println("Updated By: "+updatedBy);
-		
-		Map<String,String> map = new HashMap<String,String>();
+		System.out.println("id " + id);
+		System.out.println("provname " + provinceName);
+		System.out.println("Updated By: " + updatedBy);
+
+		Map<String, String> map = new HashMap<String, String>();
 		map.put("id", id);
 		map.put("provinceName", provinceName);
 		map.put("updatedBy", updatedBy);
@@ -952,20 +1041,19 @@ public class PortalManager {
 			}
 		}
 	}
-	
-	//EDIT CITY
+
+	// EDIT CITY
 	public void editCity(String id, String cityProvinceId, String cityName, String updatedBy) {
 
-		System.out.println("id "+id);
-		System.out.println("cityProvinceId "+cityProvinceId);
-		System.out.println("cityName "+cityName);
-		
-		Map<String,String> map = new HashMap<String,String>();
+		System.out.println("id " + id);
+		System.out.println("cityProvinceId " + cityProvinceId);
+		System.out.println("cityName " + cityName);
+
+		Map<String, String> map = new HashMap<String, String>();
 		map.put("id", id);
 		map.put("cityProvinceId", cityProvinceId);
 		map.put("cityName", cityName);
 		map.put("updatedBy", updatedBy);
-
 
 		try {
 			ibatis.startTransaction();
@@ -983,15 +1071,15 @@ public class PortalManager {
 			}
 		}
 	}
-		
-	//EDIT MAJOR
+
+	// EDIT MAJOR
 	public void editMajor(String id, String majorName, String description, String updatedBy) {
 
-		System.out.println("id "+id);
-		System.out.println("majorName "+majorName);
-		System.out.println("description "+description);
-		
-		Map<String,String> map = new HashMap<String,String>();
+		System.out.println("id " + id);
+		System.out.println("majorName " + majorName);
+		System.out.println("description " + description);
+
+		Map<String, String> map = new HashMap<String, String>();
 		map.put("id", id);
 		map.put("majorName", majorName);
 		map.put("description", description);
@@ -1013,15 +1101,15 @@ public class PortalManager {
 			}
 		}
 	}
-		
-	//EDIT DEPARTMENT
+
+	// EDIT DEPARTMENT
 	public void editDepartment(String id, String msDepartmentName, String description, String updatedBy) {
 
-		System.out.println("id "+id);
-		System.out.println("msDepartmentName "+msDepartmentName);
-		System.out.println("description "+description);
-		
-		Map<String,String> map = new HashMap<String,String>();
+		System.out.println("id " + id);
+		System.out.println("msDepartmentName " + msDepartmentName);
+		System.out.println("description " + description);
+
+		Map<String, String> map = new HashMap<String, String>();
 		map.put("id", id);
 		map.put("msDepartmentName", msDepartmentName);
 		map.put("description", description);
@@ -1043,15 +1131,15 @@ public class PortalManager {
 			}
 		}
 	}
-		
-	//EDIT LOCATION
+
+	// EDIT LOCATION
 	public void editLocation(String id, String locationName, String description, String updatedBy) {
 
-		System.out.println("id "+id);
-		System.out.println("locationName "+locationName);
-		System.out.println("description "+description);
-		
-		Map<String,String> map = new HashMap<String,String>();
+		System.out.println("id " + id);
+		System.out.println("locationName " + locationName);
+		System.out.println("description " + description);
+
+		Map<String, String> map = new HashMap<String, String>();
 		map.put("id", id);
 		map.put("locationName", locationName);
 		map.put("description", description);
@@ -1073,15 +1161,15 @@ public class PortalManager {
 			}
 		}
 	}
-	
-	//EDIT PRIVILEGE
+
+	// EDIT PRIVILEGE
 	public void editPrivilege(String id, String privilegeName, String description, String updatedBy) {
 
-		System.out.println("id "+id);
-		System.out.println("privilegeName "+privilegeName);
-		System.out.println("description "+description);
-		
-		Map<String,String> map = new HashMap<String,String>();
+		System.out.println("id " + id);
+		System.out.println("privilegeName " + privilegeName);
+		System.out.println("description " + description);
+
+		Map<String, String> map = new HashMap<String, String>();
 		map.put("id", id);
 		map.put("privilegeName", privilegeName);
 		map.put("description", description);
@@ -1103,15 +1191,15 @@ public class PortalManager {
 			}
 		}
 	}
-		
-	//EDIT POSITION
+
+	// EDIT POSITION
 	public void editPosition(String id, String positionName, String description, String updatedBy) {
 
-		System.out.println("id "+id);
-		System.out.println("positionName "+positionName);
-		System.out.println("description "+description);
-		
-		Map<String,String> map = new HashMap<String,String>();
+		System.out.println("id " + id);
+		System.out.println("positionName " + positionName);
+		System.out.println("description " + description);
+
+		Map<String, String> map = new HashMap<String, String>();
 		map.put("id", id);
 		map.put("positionName", positionName);
 		map.put("description", description);
@@ -1133,15 +1221,15 @@ public class PortalManager {
 			}
 		}
 	}
-	
-	//EDIT BANK
+
+	// EDIT BANK
 	public void editBank(String id, String bankName, String description, String updatedBy) {
 
-		System.out.println("id "+id);
-		System.out.println("bankName "+bankName);
-		System.out.println("description "+description);
-		
-		Map<String,String> map = new HashMap<String,String>();
+		System.out.println("id " + id);
+		System.out.println("bankName " + bankName);
+		System.out.println("description " + description);
+
+		Map<String, String> map = new HashMap<String, String>();
 		map.put("id", id);
 		map.put("bankName", bankName);
 		map.put("description", description);
@@ -1164,7 +1252,7 @@ public class PortalManager {
 		}
 	}
 
-	//END MASTER OTHERS
+	// END MASTER OTHERS
 
 	// SELECT PRIVILEGE FROM ROLE_ID
 	public List<PortalMasterRoleBean> getPrivilegeRoleList(String id) {
@@ -1179,7 +1267,7 @@ public class PortalManager {
 		}
 		return list;
 	}
-	
+
 	// SELECT MENU FROM ROLE_ID
 	public List<PortalMasterRoleBean> getMenuRoleList(String id) {
 		List<PortalMasterRoleBean> list = null;
@@ -1193,15 +1281,15 @@ public class PortalManager {
 		}
 		return list;
 	}
-	
-	//DELETE EXIST MENU 
+
+	// DELETE EXIST MENU
 	public void deleteExistMenu(String id, String menuId) {
 		System.out.println("DELETE EXIST MENU ");
-		
-		Map<String,String> map = new HashMap<String,String>();
+
+		Map<String, String> map = new HashMap<String, String>();
 		map.put("id", id);
 		map.put("menuId", menuId);
-		
+
 		try {
 			ibatis.startTransaction();
 			ibatis.delete("employees.deleteExistMenu", map);
@@ -1218,15 +1306,15 @@ public class PortalManager {
 			}
 		}
 	}
-	
-	//DELETE EXIST PRIVILEGE 
+
+	// DELETE EXIST PRIVILEGE
 	public void deleteExistPriv(String id, String privilegeId) {
 		System.out.println("DELETE EXIST PRIVILEGE ");
-		
-		Map<String,String> map = new HashMap<String,String>();
+
+		Map<String, String> map = new HashMap<String, String>();
 		map.put("id", id);
 		map.put("privilegeId", privilegeId);
-		
+
 		try {
 			ibatis.startTransaction();
 			ibatis.delete("employees.deleteExistPriv", map);
@@ -1243,15 +1331,15 @@ public class PortalManager {
 			}
 		}
 	}
-	
+
 	// UPDATE NEW ROLE Name
 	public void updateNewRoleName(String id, String roleName, String description) {
-		
-		Map<String,String> map = new HashMap<String,String>();
+
+		Map<String, String> map = new HashMap<String, String>();
 		map.put("id", id);
 		map.put("roleName", roleName);
 		map.put("description", description);
-		
+
 		try {
 			ibatis.startTransaction();
 			ibatis.insert("employees.updateNewRoleName", map);
@@ -1268,14 +1356,14 @@ public class PortalManager {
 			}
 		}
 	}
-	
+
 	// UPDATE-INSERT NEW ROLE TR_MENU
 	public void updateNewRoleMenu(String id, String menuId) {
-		
-		Map<String,String> map = new HashMap<String,String>();
+
+		Map<String, String> map = new HashMap<String, String>();
 		map.put("id", id);
 		map.put("menuId", menuId);
-		
+
 		try {
 			ibatis.startTransaction();
 			ibatis.insert("employees.updateNewRoleMenu", map);
@@ -1292,14 +1380,14 @@ public class PortalManager {
 			}
 		}
 	}
-	
-	// UPDATE-INSERT NEW ROLE TR_PRIVILEGE 
+
+	// UPDATE-INSERT NEW ROLE TR_PRIVILEGE
 	public void updateNewRolePriv(String id, String privilegeId) {
-		
-		Map<String,String> map = new HashMap<String,String>();
+
+		Map<String, String> map = new HashMap<String, String>();
 		map.put("id", id);
 		map.put("privilegeId", privilegeId);
-		
+
 		try {
 			ibatis.startTransaction();
 			ibatis.insert("employees.updateNewRolePriv", map);
@@ -1317,11 +1405,11 @@ public class PortalManager {
 		}
 	}
 
-	public boolean isAuthorized(String username, String password){
-		Map<String,String> user = new HashMap<String,String>();
+	public boolean isAuthorized(String username, String password) {
+		Map<String, String> user = new HashMap<String, String>();
 		user.put("username", username);
 		user.put("password", password);
-		
+
 		Integer result;
 		try {
 			result = (Integer) ibatis.queryForObject("users.isAuthorized", user);
@@ -1332,14 +1420,14 @@ public class PortalManager {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return true;	
+		return true;
 	}
-	
+
 	public void updateStatusLogin(String username, int status) {
-		Map<String,String> user = new HashMap<String,String>();
+		Map<String, String> user = new HashMap<String, String>();
 		user.put("username", username);
 		user.put("status", String.valueOf(status));
-		
+
 		try {
 			ibatis.startTransaction();
 			ibatis.update("users.updateStatusLogin", user);
@@ -1356,7 +1444,7 @@ public class PortalManager {
 			}
 		}
 	}
-	
+
 	public void resetStatusLogin() {
 		try {
 			ibatis.startTransaction();
@@ -1374,9 +1462,9 @@ public class PortalManager {
 			}
 		}
 	}
-	
+
 	public PortalUserBean checkLogin(String username, String password) {
-		Map<String,String> user = new HashMap<String,String>();
+		Map<String, String> user = new HashMap<String, String>();
 		user.put("username", username);
 		user.put("password", password);
 
@@ -1390,7 +1478,7 @@ public class PortalManager {
 		}
 		return bean;
 	}
-	
+
 	public PortalUserBean getEmailData(String username) {
 		PortalUserBean bean = new PortalUserBean();
 		try {
@@ -1402,12 +1490,12 @@ public class PortalManager {
 		}
 		return bean;
 	}
-	
+
 	public boolean checkUserExist(String username, String password) {
-		Map<String,String> user = new HashMap<String,String>();
+		Map<String, String> user = new HashMap<String, String>();
 		user.put("username", username);
 		user.put("password", password);
-		
+
 		Integer result = null;
 		try {
 			result = (Integer) ibatis.queryForObject("users.checkUserExist", user);
@@ -1420,7 +1508,7 @@ public class PortalManager {
 		}
 		return true;
 	}
-	
+
 	public String getPortalUrl() {
 		String url = null;
 		try {
@@ -1432,12 +1520,12 @@ public class PortalManager {
 		}
 		return url;
 	}
-	
+
 	public void updatePassword(String password, String employeeId) {
-		Map<String,String> user = new HashMap<String,String>();
+		Map<String, String> user = new HashMap<String, String>();
 		user.put("password", password);
 		user.put("employeeId", employeeId);
-		
+
 		try {
 			ibatis.startTransaction();
 			ibatis.update("users.updatePassword", user);

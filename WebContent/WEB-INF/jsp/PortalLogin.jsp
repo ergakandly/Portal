@@ -35,6 +35,11 @@
 		<div id="login_el">
 			<h1 class="loginFont">login</h1>
 			<form action="#">
+			<logic:notEmpty name="PortalForm" property="errorMessage">
+					<center><font color="yellow">
+						<bean:write name="PortalForm" property="errorMessage"/>
+					</font></center>
+				</logic:notEmpty>
 				<div class="input">
 					<label for="name" class="entypo-user"></label>
 					<input type="text" name="user" placeholder="username"

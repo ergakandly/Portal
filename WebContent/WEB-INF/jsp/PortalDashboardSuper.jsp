@@ -158,23 +158,31 @@ body {
 							<div class="panel panel-info">
 								<div class="panel-heading">
 									<h5 class="panel-title">
-										<i class="fa fa-info-circle"></i> Next Leave Day
+										<i class="fa fa-info-circle"></i> Upcoming Special Date
 									</h5>
 								</div>
 								<div class="panel-body">
-									<table align="center"
-										class="table table-striped table-hover table-condensed">
-										<tbody>
-											<tr>
-												<td class="kanan fontBold" width="25%">30 Desember 2015 :</td>
-												<td width="75%">Leave Mass New Year</td>
-											</tr>
-											<tr>
-												<td class="kanan fontBold">1 Januari 2016 :</td>
-												<td>New Year 2016</td>
-											</tr>
-										</tbody>
-									</table>
+									<logic:notEmpty scope="request" name="specialDate">
+											<table align="center"
+												class="table table-striped table-hover table-condensed">
+												<tbody>
+													<logic:iterate scope="request" name="specialDate" id="record">
+														<tr>
+															<td class="kanan fontBold" width="25%">
+															<bean:write name="record" property="date" />:</td>
+															<td width="75%">
+															<logic:equal name="record" property="type" value="1">
+																Libur
+															</logic:equal>
+															<logic:equal name="record" property="type" value="2">
+																Cuti Bersama
+															</logic:equal>
+															<bean:write name="record" property="description"/></td>
+														</tr>
+													</logic:iterate>
+												</tbody>
+											</table>
+									</logic:notEmpty>
 								</div>
 							</div>
 							<!-- END PANEL -->
@@ -290,23 +298,84 @@ body {
 									</h5>
 								</div>
 								<div class="panel-body">
+
+									<logic:notEqual name="noNotification" scope="request" value="1">
+										<div class="alert alert-danger alert-dismissible" role="alert">
+											<button type="button" class="close" data-dismiss="alert"
+												aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+											</button>
+											<i class="fa fa-info-circle"></i>
+											<logic:notEqual name="totalPendingLeaveApproval"
+												scope="request" value="0">
+												<bean:write name="totalPendingLeaveApproval" scope="request" />
+													leave request(s) is waiting for your approval
+												</logic:notEqual><br/>
+												<i class="fa fa-info-circle"></i>
+												<logic:notEqual name="totalPendingExtraQuotaApproval"
+												scope="request" value="0">
+												<bean:write name="totalPendingExtraQuotaApproval"
+													scope="request" />
+													extra quota request(s) is waiting for your approval
+												</logic:notEqual><br/>
+												<i class="fa fa-info-circle"></i>
+												<logic:notEqual name="totalPendingAttendanceApproval"
+												scope="request" value="0">
+												<bean:write name="totalPendingAttendanceApproval"
+													scope="request" />
+													attendance request(s) is waiting for your approval
+												</logic:notEqual>
+										</div>
+									</logic:notEqual>
+
 									<table align="center"
 										class="table table-striped table-hover table-condensed">
 										<tbody>
-											<tr>
-												<td>Guntur2 Gozali has approved your request leave</td>
-											</tr>
-											<tr>
-												<td>Guntur Gozali has approved your request leave</td>
-											</tr>
-											<tr>
-												<td>Guntur Gozali has approved your request leave</td>
-											</tr>
-											<tr>
-												<td>Guntur Gozali has approved your request leave</td>
-											</tr>
-											<tr>
-											</tr>
+											<logic:iterate id="iterateNotifLeave"
+												name="notifApprovedLeave" scope="request">
+												<tr>
+													<td><bean:write name="iterateNotifLeave"
+															property="name" /> has <bean:write
+															name="iterateNotifLeave" property="status" /> your leave
+														request for <bean:write name="iterateNotifLeave"
+															property="dateOne" /> to <bean:write
+															name="iterateNotifLeave" property="dateTwo" /> on <bean:write
+															name="iterateNotifLeave" property="approvalDate" /></td>
+												</tr>
+											</logic:iterate>
+											<logic:iterate id="iterateNotifExtra"
+												name="notifApprovedExtraLeave" scope="request">
+												<tr>
+													<td><bean:write name="iterateNotifExtra"
+															property="name" /> has <bean:write
+															name="iterateNotifExtra" property="status" /> your extra
+														leave quota request for <bean:write
+															name="iterateNotifExtra" property="dateOne" /> on <bean:write
+															name="iterateNotifExtra" property="approvalDate" /></td>
+												</tr>
+											</logic:iterate>
+											<logic:iterate id="iterateNotifAttendance"
+												name="notifApprovedAttendance" scope="request">
+												<tr>
+													<td><bean:write name="iterateNotifAttendance"
+															property="name" /> has <bean:write
+															name="iterateNotifAttendance" property="status" /> your
+														attendance request for <bean:write
+															name="iterateNotifAttendance" property="dateOne" /> to <bean:write
+															name="iterateNotifAttendance" property="dateTwo" /> on <bean:write
+															name="iterateNotifAttendance" property="approvalDate" />
+													</td>
+												</tr>
+											</logic:iterate>
+											<logic:empty name="notifApprovedLeave" scope="request">
+												<logic:empty name="notifApprovedExtraLeave" scope="request">
+													<logic:empty name="notifApprovedAttendance" scope="request">
+														<tr>
+															<td>You have no recently notification.</td>
+														</tr>
+													</logic:empty>
+												</logic:empty>
+											</logic:empty>
 										</tbody>
 									</table>
 								</div>

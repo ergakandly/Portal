@@ -86,13 +86,13 @@ public class PortalForm extends ActionForm{
 	public String[] selectedNewPriv;
 	public List viewMenu;
 	public List viewPriv;
-	private String parameter;
+	private String errorMessage;
 	
-	public String getParameter() {
-		return parameter;
+	public String getErrorMessage() {
+		return errorMessage;
 	}
-	public void setParameter(String parameter) {
-		this.parameter = parameter;
+	public void setErrorMessage(String errorMessage) {
+		this.errorMessage = errorMessage;
 	}
 	public String getRoleDescription() {
 		return roleDescription;

@@ -64,8 +64,8 @@ td.width100 {
 
 /*====== KHUSUS HRIS_PORTAL ===========*/
 .iconDashboard {
-	height: 100px;
-	width: 100px;
+	height: 150px !important;
+	width: 150px !important;
 	margin: 2px 2px 2px 2px !important;
 }
 /*====== END KHUSUS HRIS_PORTAL ===========*/
