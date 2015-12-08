@@ -7,7 +7,7 @@ PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
 		SELECT 	tbla.department AS departmentName,
 				jml_hadir AS totalPresence,
 				jml_emp_dept AS totalEmployee, 
-				(jml_hadir/jml_emp_dept) AS averageAttendance
+				(jml_hadir/jml_emp_dept) AS average
 		FROM(
 		SELECT department, SUM(jmlHadir) AS jml_hadir
 		FROM(
@@ -30,5 +30,97 @@ PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
 		   JOIN ms_department dept ON emp.department_id=dept.department_id
 		   GROUP BY department
 		) dept_emp_count on tbla.department = dept_emp_count.department
+	</select>
+	
+	<select id="getPastLate" resultClass="com.hris.portal.model.ChartBean">
+		SELECT tbla.department AS departmentName,lateCounters,jml_emp_dept, lateCounters/jml_emp_dept AS average
+		FROM(
+		SELECT department, SUM(lateCounter) AS lateCounters
+		FROM(
+		    SELECT emp.employee_id, department,lateCounter
+		    FROM ms_employee emp JOIN
+		        (SELECT employee_id, SUM(lateCount) AS lateCounter
+		            FROM (SELECT employee_id,
+		            CASE WHEN TO_CHAR(check_in, 'HH24:MI:SS') > TO_CHAR('08:00:00') 
+		            THEN 1                 
+		            ELSE 0  
+		            END AS lateCount 
+		            FROM tr_attendance
+		            WHERE TO_CHAR(check_in, 'dd/mm/yyyy') BETWEEN ('21/'||TO_CHAR((ADD_MONTHS(SYSDATE,-3)),'mm/yyyy'))  AND ('20/'||TO_CHAR((ADD_MONTHS(SYSDATE,-1)),'mm/yyyy'))
+		            AND(approval_status = '2' OR approval_status is null))
+		            GROUP BY employee_id)   att
+		    ON emp.employee_id=att.employee_id
+		    RIGHT OUTER JOIN ms_department dept ON emp.department_id=dept.department_id
+		    ORDER BY emp.employee_id
+		) 
+		GROUP BY department
+		)tbla
+		JOIN 
+		(
+		   SELECT department,COUNT(*) jml_emp_dept
+		   FROM ms_employee emp
+		   RIGHT OUTER  JOIN ms_department dept ON emp.department_id=dept.department_id
+		   GROUP BY department
+		) dept_emp_count on tbla.department = dept_emp_count.department
+		ORDER BY tbla.department
+	</select>
+	
+	<select id="getPastWorkingHours" resultClass="com.hris.portal.model.ChartBean">
+		SELECT tbla.department AS departmentName,totalSecs,jml_emp_dept, totalSecs/jml_emp_dept AS average, TRUNC(totalSecs/3600)||' Hour(s) '||
+	        TRUNC(MOD(totalSecs, 3600)/60)||'Minute(s) '|| 
+	        MOD(totalSecs, 60)||' Second(s)' as description
+		FROM(
+		SELECT department, SUM(totalSec) AS totalSecs
+		FROM(
+		    SELECT emp.employee_id, department,totalSec
+		    FROM ms_employee emp JOIN
+		        (
+		            SELECT SUM(diff) AS totalSec, employeeId 
+		            FROM( 
+		                SELECT (check_out - check_in)*24*3600 diff, emp.employee_id AS employeeId 
+		                FROM ms_employee emp, tr_attendance attendance 
+		                WHERE emp.employee_id = attendance.employee_id
+		                AND check_in BETWEEN TO_DATE(('21/'||TO_CHAR((ADD_MONTHS(SYSDATE,-3)),'mm/yyyy')),'dd/mm/yyyy' ) AND TO_DATE(('20/'||TO_CHAR((ADD_MONTHS(SYSDATE,-1)),'mm/yyyy')),'dd/mm/yyyy')
+		            ) GROUP BY employeeId
+		          
+		    )   att
+		    ON emp.employee_id=att.employeeId
+		    RIGHT OUTER JOIN ms_department dept ON emp.department_id=dept.department_id
+		    ORDER BY emp.employee_id
+		) 
+		GROUP BY department
+		)tbla
+		JOIN 
+		(
+		   SELECT department,COUNT(*) jml_emp_dept
+		   FROM ms_employee emp
+		   RIGHT OUTER  JOIN ms_department dept ON emp.department_id=dept.department_id
+		   GROUP BY department
+		) dept_emp_count on tbla.department = dept_emp_count.department
+		ORDER BY tbla.department
+	</select>
+	
+	<select id="getPastLeave" resultClass="com.hris.portal.model.ChartBean">
+		SELECT (select department from ms_department dept where dept.department_id=dept_emp_count.department_id) as departmentName, jmlcuti, jml_emp_dept,  jmlcuti/jml_emp_dept AS average
+		from( 
+		select emp.department_id, SUM(jml_cuti) as jmlcuti 
+		from  
+		ms_employee emp join ( 
+		    select employee_id,count(*) as jml_cuti 
+		    from tr_leave leave 
+		    join tr_leave_detail det on leave.leave_id=det.leave_id 
+		    where approval_status=3  
+		    and to_char(leave_date,'mm/yyyy') = to_char(sysdate,'mm/yyyy') 
+		    group by employee_id 
+		) empleave on emp.employee_id=empleave.employee_id 
+		GROUP BY department_id 
+		) tbla  
+		RIGHT JOIN (  
+		    SELECT dept.department_id,COUNT(employee_id) jml_emp_dept  
+		    FROM ms_employee emp  
+		    right join ms_department dept on emp.department_id=dept.department_id 
+		    GROUP BY dept.department_id 
+		) dept_emp_count on tbla.department_id = dept_emp_count.department_id 
+		ORDER BY departmentName
 	</select>
 </sqlMap>
