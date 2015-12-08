@@ -43,14 +43,14 @@ public class PortalFilter implements Filter {
 		this.context.log("Requested Resource::PORTAL");
 		HttpSession session = req.getSession(false);
 		
-		if (null == session.getAttribute("username")) {
+		if (null != session && (null != session.getAttribute("username")) || null != req.getParameter("zx"))
+			chain.doFilter(request, response);
+		else {
 			this.context.log("Unauthorized access request - PORTAL");
 			
 			PortalManager manager = new PortalManager();
 			res.sendRedirect(manager.getPortalUrl());
 		}
-		else
-			chain.doFilter(request, response);
 	}
 
 	/**
@@ -58,7 +58,7 @@ public class PortalFilter implements Filter {
 	 */
 	public void init(FilterConfig fConfig) throws ServletException {
 		this.context = fConfig.getServletContext();
-		this.context.log("AuthenticationFilter initialized");
+		this.context.log("AuthenticationFilter initialized - PORTAL");
 	}
 
 }
