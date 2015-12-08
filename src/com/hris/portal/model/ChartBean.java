@@ -7,15 +7,20 @@ public class ChartBean {
 	private String departmentName;
 	private String totalPresence;
 	private String totalEmployee;
-	private Double averageAttendance;
+	private Double average;
+	private String description;
 	
-
-
-	public Double getAverageAttendance() {
-		return averageAttendance;
+	public Double getAverage() {
+		return average;
 	}
-	public void setAverageAttendance(Double averageAttendance) {
-		this.averageAttendance = averageAttendance;
+	public void setAverage(Double average) {
+		this.average = average;
+	}
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
 	}
 	public String getDepartmentName() {
 		return departmentName;
