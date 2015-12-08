@@ -13,7 +13,7 @@
 </head>
 
 <script type="text/javascript">
-	function flyToPage(task, id, isDeleteMasterOthers) {
+	function navigateToPage(task, id, isDeleteMasterOthers) {
 		document.forms[0].task.value = task;
 		document.forms[0].id.value = id;
 		document.forms[0].isDeleteMasterOthers.value = isDeleteMasterOthers;
@@ -49,12 +49,12 @@
 							<ul class="breadcrumb">
 								<logic:equal name="PortalForm" property="userExist" value="super">
 									<li><i class="fa fa-dashboard"></i><a
-										href="javascript:flyToPage('dashboardSuper');"> Dashboard</a></li>
+										href="javascript:navigateToPage('dashboardSuper');"> Dashboard</a></li>
 									<li><i class="fa fa-th-large"></i> Master Location</li>
 								</logic:equal>
 								<logic:notEqual name="PortalForm" property="userExist" value="super">
 									<li><i class="fa fa-dashboard"></i><a
-										href="javascript:flyToPage('dashboardUser');"> Dashboard</a></li>
+										href="javascript:navigateToPage('dashboardUser');"> Dashboard</a></li>
 									<li><i class="fa fa-th-large"></i> Master Location</li>
 								</logic:notEqual>
 							</ul>
@@ -108,7 +108,7 @@
 
 												<button type="button" class="btn btn-danger"
 													data-toggle="modal" data-target="#modalYakinLocation"
-													onclick="javascript:flyToPage('masterOthers', '<bean:write name="portalLocationList" property="locationId" />', 'location');">
+													onclick="javascript:navigateToPage('masterLocation', '<bean:write name="portalLocationList" property="locationId" />', 'location');">
 													<i class="fa fa-trash"></i> Delete
 												</button>
 
@@ -230,11 +230,11 @@
 			document.forms["PortalForm"].id.value = "undefined";
 			document.forms["PortalForm"].elements["portalLocationBean.locationName"].value = "";
 			document.forms["PortalForm"].elements["portalLocationBean.description"].value = "";
-			document.forms["PortalForm"].task.value = "masterOthers";
+			document.forms["PortalForm"].task.value = "masterLocation";
 		}
 		
 		function editLocation(id, name, desc) {
-			document.forms["PortalForm"].task.value = "masterOthers";
+			document.forms["PortalForm"].task.value = "masterLocation";
 			document.forms["PortalForm"].elements["portalLocationBean.locationName"].value = name;
 			document.forms["PortalForm"].elements["portalLocationBean.description"].value = desc;
 			document.forms["PortalForm"].id.value = id;

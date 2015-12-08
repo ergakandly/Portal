@@ -13,7 +13,7 @@
 </head>
 
 <script type="text/javascript">
-	function flyToPage(task, id, isDeleteMasterOthers) {
+	function navigateToPage(task, id, isDeleteMasterOthers) {
 		document.forms[0].task.value = task;
 		document.forms[0].id.value = id;
 		document.forms[0].isDeleteMasterOthers.value = isDeleteMasterOthers;
@@ -49,12 +49,12 @@
 							<ul class="breadcrumb">
 								<logic:equal name="PortalForm" property="userExist" value="super">
 									<li><i class="fa fa-dashboard"></i><a
-										href="javascript:flyToPage('dashboardSuper');"> Dashboard</a></li>
+										href="javascript:navigateToPage('dashboardSuper');"> Dashboard</a></li>
 									<li><i class="fa fa-th-large"></i> Master Major</li>
 								</logic:equal>
 								<logic:notEqual name="PortalForm" property="userExist" value="super">
 									<li><i class="fa fa-dashboard"></i><a
-										href="javascript:flyToPage('dashboardUser');"> Dashboard</a></li>
+										href="javascript:navigateToPage('dashboardUser');"> Dashboard</a></li>
 									<li><i class="fa fa-th-large"></i> Master Major</li>
 								</logic:notEqual>
 							</ul>
@@ -108,7 +108,7 @@
 
 												<button type="button" class="btn btn-danger"
 													data-toggle="modal" data-target="#modalYakinMajor"
-													onclick="javascript:flyToPage('masterOthers', '<bean:write name="portalMajorList" property="majorId" />', 'major');">
+													onclick="javascript:navigateToPage('mastermajor', '<bean:write name="portalMajorList" property="majorId" />', 'major');">
 													<i class="fa fa-trash"></i> Delete
 												</button>
 
@@ -229,11 +229,11 @@
 			document.forms["PortalForm"].id.value = "undefined";
 			document.forms["PortalForm"].elements["portalMajorBean.majorName"].value = "";
 			document.forms["PortalForm"].elements["portalMajorBean.description"].value = "";
-			document.forms["PortalForm"].task.value = "masterOthers";
+			document.forms["PortalForm"].task.value = "mastermajor";
 		}
 		
 		function editMajor(id, name, desc) {
-			document.forms["PortalForm"].task.value = "masterOthers";
+			document.forms["PortalForm"].task.value = "mastermajor";
 			document.forms["PortalForm"].elements["portalMajorBean.majorName"].value = name;
 			document.forms["PortalForm"].elements["portalMajorBean.description"].value = desc;
 			document.forms["PortalForm"].id.value = id;

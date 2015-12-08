@@ -13,7 +13,7 @@
 </head>
 
 <script type="text/javascript">
-	function flyToPage(task, id, isDeleteMasterOthers) {
+	function navigateToPage(task, id, isDeleteMasterOthers) {
 		document.forms[0].task.value = task;
 		document.forms[0].id.value = id;
 		document.forms[0].isDeleteMasterOthers.value = isDeleteMasterOthers;
@@ -49,7 +49,7 @@
 							<!-- BREADCRUMB -->
 							<ul class="breadcrumb">
 								<li><i class="fa fa-dashboard"></i><a
-									href="javascript:flyToPage('dashboardAdmin');"> Dashboard</a></li>
+									href="javascript:navigateToPage('dashboardAdmin');"> Dashboard</a></li>
 								<li><i class="fa fa-th-large"></i> Master Privilege</li>
 							</ul>
 							<!-- END BREADCRUMB -->
@@ -103,7 +103,7 @@
 												</button>
 												<button type="button" class="btn btn-danger"
 															data-toggle="modal" data-backdrop="static" data-target="#modalYakin"
-															onclick="javascript:flyToPage('masterPrivilege', '<bean:write name="portalPrivilegeList" property="privilegeId" />', 'privilege');">
+															onclick="javascript:navigateToPage('masterPrivilege', '<bean:write name="portalPrivilegeList" property="privilegeId" />', 'privilege');">
 															<i class="fa fa-trash"></i> Delete
 												</button>
 											</td>

@@ -1,5 +1,6 @@
 package com.hris.portal.handler;
 
+import java.awt.Color;
 import java.io.OutputStream;
 import java.util.List;
 
@@ -14,7 +15,9 @@ import org.apache.struts.actions.DispatchAction;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.renderer.category.BarRenderer;
 import org.jfree.data.category.DefaultCategoryDataset;
 
 import com.hris.portal.manager.ChartManager;
@@ -45,7 +48,7 @@ public class ChartAction extends DispatchAction {
 		JFreeChart barChart = ChartFactory.createBarChart(  
 		          "Departments - Total Attendance over Last 3 Months",      //Title  
 		          "Departments",             // X-axis Label  
-		          "Total Attendance",               // Y-axis Label  
+		          "Total Attendance in Days",               // Y-axis Label  
 		          barDataSet,             // Dataset  
 		          PlotOrientation.VERTICAL,      //Plot orientation  
 		          false,                // Show legend  
@@ -53,8 +56,17 @@ public class ChartAction extends DispatchAction {
 		          false                // Generate URLs  
 		       );  
 		
+		 CategoryPlot plot = barChart.getCategoryPlot();
+	        plot.setBackgroundPaint(Color.lightGray);
+	        plot.setDomainGridlinePaint(Color.white);
+	        plot.setDomainGridlinesVisible(true);
+	        plot.setRangeGridlinePaint(Color.white);
+	      
+	     BarRenderer renderer = (BarRenderer) barChart.getCategoryPlot().getRenderer();
+ 		 renderer.setSeriesPaint(0, new Color(51,122,183));
+		
 		OutputStream out=response.getOutputStream();
-		ChartUtilities.writeChartAsJPEG(out, barChart, 500, 220);
+		ChartUtilities.writeChartAsJPEG(out, barChart, 500, 325);
 		out.flush();
 		
 		return null;
@@ -81,7 +93,7 @@ public class ChartAction extends DispatchAction {
 		JFreeChart barChart = ChartFactory.createBarChart(  
 		          "Departments - Total Late over Last 3 Months",      //Title  
 		          "Departments",             // X-axis Label  
-		          "Total Late",               // Y-axis Label  
+		          "Total Late in Days",               // Y-axis Label  
 		          barDataSet,             // Dataset  
 		          PlotOrientation.VERTICAL,      //Plot orientation  
 		          false,                // Show legend  
@@ -89,8 +101,17 @@ public class ChartAction extends DispatchAction {
 		          false                // Generate URLs  
 		       );  
 		
+		 CategoryPlot plot = barChart.getCategoryPlot();
+	        plot.setBackgroundPaint(Color.lightGray);
+	        plot.setDomainGridlinePaint(Color.white);
+	        plot.setDomainGridlinesVisible(true);
+	        plot.setRangeGridlinePaint(Color.white);
+	      
+	     BarRenderer renderer = (BarRenderer) barChart.getCategoryPlot().getRenderer();
+ 		 renderer.setSeriesPaint(0, new Color(51,122,183));
+		
 		OutputStream out=response.getOutputStream();
-		ChartUtilities.writeChartAsJPEG(out, barChart, 500, 220);
+		ChartUtilities.writeChartAsJPEG(out, barChart, 500, 325);
 		out.flush();
 		
 		return null;
@@ -117,7 +138,7 @@ public class ChartAction extends DispatchAction {
 		JFreeChart barChart = ChartFactory.createBarChart(  
 		          "Departments - Total Working Hours over Last 3 Months",      //Title  
 		          "Departments",             // X-axis Label  
-		          "Total Hours",               // Y-axis Label  
+		          "Total Hours in Seconds",               // Y-axis Label  
 		          barDataSet,             // Dataset  
 		          PlotOrientation.VERTICAL,      //Plot orientation  
 		          false,                // Show legend  
@@ -125,8 +146,17 @@ public class ChartAction extends DispatchAction {
 		          false                // Generate URLs  
 		       );  
 		
+		 CategoryPlot plot = barChart.getCategoryPlot();
+	        plot.setBackgroundPaint(Color.lightGray);
+	        plot.setDomainGridlinePaint(Color.white);
+	        plot.setDomainGridlinesVisible(true);
+	        plot.setRangeGridlinePaint(Color.white);
+	      
+	     BarRenderer renderer = (BarRenderer) barChart.getCategoryPlot().getRenderer();
+ 		 renderer.setSeriesPaint(0, new Color(51,122,183));
+ 		 
 		OutputStream out=response.getOutputStream();
-		ChartUtilities.writeChartAsJPEG(out, barChart, 500, 220);
+		ChartUtilities.writeChartAsJPEG(out, barChart, 500, 325);
 		out.flush();
 		
 		return null;
@@ -153,7 +183,7 @@ public class ChartAction extends DispatchAction {
 		JFreeChart barChart = ChartFactory.createBarChart(  
 		          "Departments - Total Leave over Last 3 Months",      //Title  
 		          "Departments",             // X-axis Label  
-		          "Total Leave",               // Y-axis Label  
+		          "Total Leave in Days",               // Y-axis Label  
 		          barDataSet,             // Dataset  
 		          PlotOrientation.VERTICAL,      //Plot orientation  
 		          false,                // Show legend  
@@ -161,8 +191,18 @@ public class ChartAction extends DispatchAction {
 		          false                // Generate URLs  
 		       );  
 		
+		 CategoryPlot plot = barChart.getCategoryPlot();
+	        plot.setBackgroundPaint(Color.lightGray);
+	        plot.setDomainGridlinePaint(Color.white);
+	        plot.setDomainGridlinesVisible(true);
+	        plot.setRangeGridlinePaint(Color.white);
+	      
+	     BarRenderer renderer = (BarRenderer) barChart.getCategoryPlot().getRenderer();
+    		 renderer.setSeriesPaint(0, new Color(51,122,183));
+    		 
+		
 		OutputStream out=response.getOutputStream();
-		ChartUtilities.writeChartAsJPEG(out, barChart, 500, 220);
+		ChartUtilities.writeChartAsJPEG(out, barChart, 500, 325);
 		out.flush();
 		
 		return null;

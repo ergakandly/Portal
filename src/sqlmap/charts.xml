@@ -15,10 +15,10 @@ PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
 		    FROM ms_employee emp JOIN
 		        (SELECT employee_id, COUNT(attendance_id) AS jmlHadir
 		        FROM tr_attendance
-		        WHERE TO_CHAR(check_in, 'mm/yyyy') BETWEEN TO_CHAR(ADD_MONTHS(SYSDATE,-3),'mm/yyyy')  AND TO_CHAR(ADD_MONTHS(SYSDATE,-1),'mm/yyyy') 
+		        WHERE check_in BETWEEN TO_DATE(('21/'||TO_CHAR((ADD_MONTHS(SYSDATE,-3)),'mm/yyyy')),'dd/mm/yyyy' ) AND TO_DATE(('20/'||TO_CHAR((ADD_MONTHS(SYSDATE,-1)),'mm/yyyy')),'dd/mm/yyyy')
 		        GROUP BY employee_id)   att
 		    ON emp.employee_id=att.employee_id
-		    JOIN ms_department dept ON emp.department_id=dept.department_id
+		    RIGHT OUTER JOIN ms_department dept ON emp.department_id=dept.department_id
 		    ORDER BY emp.employee_id
 		) 
 		GROUP BY department
@@ -27,7 +27,7 @@ PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
 		(
 		   SELECT department,COUNT(*) jml_emp_dept
 		   FROM ms_employee emp
-		   JOIN ms_department dept ON emp.department_id=dept.department_id
+		   RIGHT OUTER JOIN ms_department dept ON emp.department_id=dept.department_id
 		   GROUP BY department
 		) dept_emp_count on tbla.department = dept_emp_count.department
 	</select>
@@ -46,7 +46,7 @@ PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
 		            ELSE 0  
 		            END AS lateCount 
 		            FROM tr_attendance
-		            WHERE TO_CHAR(check_in, 'dd/mm/yyyy') BETWEEN ('21/'||TO_CHAR((ADD_MONTHS(SYSDATE,-3)),'mm/yyyy'))  AND ('20/'||TO_CHAR((ADD_MONTHS(SYSDATE,-1)),'mm/yyyy'))
+		            WHERE check_in BETWEEN TO_DATE(('21/'||TO_CHAR((ADD_MONTHS(SYSDATE,-3)),'mm/yyyy')),'dd/mm/yyyy' ) AND TO_DATE(('20/'||TO_CHAR((ADD_MONTHS(SYSDATE,-1)),'mm/yyyy')),'dd/mm/yyyy')
 		            AND(approval_status = '2' OR approval_status is null))
 		            GROUP BY employee_id)   att
 		    ON emp.employee_id=att.employee_id

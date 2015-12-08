@@ -21,6 +21,43 @@
 		document.forms[0].submit();
 	}
 </script>
+<style>
+body {
+	padding-top: 20px;
+}
+
+.carousel {
+	margin-bottom: 0;
+	padding: 0 40px 30px 40px;
+}
+/* The controlsy */
+.carousel-control {
+	left: -12px;
+	height: 40px;
+	width: 40px;
+	background: none repeat scroll 0 0 #222222;
+	border: 4px solid #FFFFFF;
+	border-radius: 23px 23px 23px 23px;
+	margin-top: 60px;
+	margin-left: 5px;
+}
+
+/* The indicators */
+.carousel-indicators {
+	right: 50%;
+	top: auto;
+	bottom: -10px;
+	margin-right: -19px;
+}
+/* The colour of the indicators */
+.carousel-indicators li {
+	background: #cecece;
+}
+
+.carousel-indicators .active {
+	background: #428bca;
+}
+</style>
 
 <body>
 	<html:form method="post" action="/portal">
@@ -46,6 +83,7 @@
 							</ul>
 							<!-- END BREADCRUMB -->
 							<br /> <br /> <br />
+							
 							<div class="row">
 								<div class="col-md-6">
 									<!-- PANEL CHART-->
@@ -56,9 +94,65 @@
 											</h5>
 										</div>
 										<div class="panel-body">
-											<img alt="Departments - Total Attendance Graph"
-												src="/HRIS_Portal/chart.do">
+										<div class="row">
+											<div id="Carousel2" class="carousel slide">
+												<ol class="carousel-indicators">
+													<li data-target="#Carousel2" data-slide-to="0"
+														class="active"></li>
+													<li data-target="#Carousel2" data-slide-to="1"></li>
+													<li data-target="#Carousel2" data-slide-to="2"></li>
+													<li data-target="#Carousel2" data-slide-to="3"></li>
+												</ol>
+	
+												<!-- Carousel items -->
+												<div class="carousel-inner">
+													<div class="item active">
+														<div class="row">
+															<div class="col-md-12 tengah">
+																<img alt="Attendance"
+																	src="/HRIS_Portal/chart.do?method=getPastAttendance">
+															</div>
+														</div>
+													</div>
+													<!--.row-->
+													<div class="item">
+														<div class="row">
+															<div class="col-md-12 tengah">
+																<img alt="Late"
+																	src="/HRIS_Portal/chart.do?method=getPastLate">
+															</div>
+														</div>
+													</div>
+													<!--.row-->
+													<div class="item">
+														<div class="row">
+															<div class="col-md-12 tengah">
+																<img alt="Working Hours"
+																	src="/HRIS_Portal/chart.do?method=getPastWorkingHours">
+															</div>
+														</div>
+													</div>
+													<!--.row-->
+													<div class="item">
+														<div class="row">
+															<div class="col-md-12 tengah">
+																<img alt="Leave"
+																	src="/HRIS_Portal/chart.do?method=getPastLeave">
+															</div>
+														</div>
+													</div>
+													<!--.row-->
+	
+													<!--.item-->
+												</div>
+												<!--.carousel-inner-->
+												<a data-slide="prev" href="#Carousel2"
+													class="left carousel-control">&lt;</a> <a data-slide="next"
+													href="#Carousel2" class="right carousel-control">&gt;</a>
+											</div>
+											<!--.Carousel-->
 										</div>
+									</div>
 									</div>
 									<!-- END PANEL -->
 								</div>
@@ -152,5 +246,12 @@
 	</html:form>
 	<!-- JAVASCRIPT -->
 	<%@include file="PartJavascript.jsp"%>
+	<script type="text/javascript">
+		$(document).ready(function() {
+		    $('#Carousel2').carousel({
+		        interval: 5000
+		    })
+		});
+	</script>
 </body>
 </html>

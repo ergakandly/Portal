@@ -34,7 +34,7 @@
 <!-- 			<forward name="success" path="/WEB-INF/jsp/PortalUserChangePassword.jsp"></forward> -->
  		</action>
  		
- 		<action path="/chart" type="com.hris.portal.handler.ChartAction"/>
+ 		<action path="/chart" type="com.hris.portal.handler.ChartAction" parameter="method"/>
  		
 	</action-mappings>
 

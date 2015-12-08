@@ -13,7 +13,7 @@
 </head>
 
 <script type="text/javascript">
-	function flyToPage(task, id, isDeleteMasterOthers) {
+	function navigateToPage(task, id, isDeleteMasterOthers) {
 		document.forms[0].task.value = task;
 		document.forms[0].id.value = id;
 		document.forms[0].isDeleteMasterOthers.value = isDeleteMasterOthers;
@@ -49,12 +49,12 @@
 							<ul class="breadcrumb">
 								<logic:equal name="PortalForm" property="userExist" value="super">
 									<li><i class="fa fa-dashboard"></i><a
-										href="javascript:flyToPage('dashboardSuper');"> Dashboard</a></li>
+										href="javascript:navigateToPage('dashboardSuper');"> Dashboard</a></li>
 									<li><i class="fa fa-th-large"></i> Master Bank</li>
 								</logic:equal>
 								<logic:notEqual name="PortalForm" property="userExist" value="super">
 									<li><i class="fa fa-dashboard"></i><a
-										href="javascript:flyToPage('dashboardUser');"> Dashboard</a></li>
+										href="javascript:navigateToPage('dashboardUser');"> Dashboard</a></li>
 									<li><i class="fa fa-th-large"></i> Master Bank</li>
 								</logic:notEqual>
 							</ul>
@@ -108,7 +108,7 @@
 
 												<button type="button" class="btn btn-danger"
 													data-toggle="modal" data-target="#modalYakinBank"
-													onclick="javascript:flyToPage('masterOthers', '<bean:write name="portalBankList" property="bankId" />', 'bank');">
+													onclick="javascript:navigateToPage('masterBank', '<bean:write name="portalBankList" property="bankId" />', 'bank');">
 													<i class="fa fa-trash"></i> Delete
 												</button>
 
@@ -174,37 +174,6 @@
 		<!-- END ADD BANK MODAL  -->
 
 		<!-- MODAL HAPUS -->
-
-		<div class="modal fade" id="modalYakinPosition" tabindex="-1"
-			role="dialog" aria-labelledby="myModalLabel">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal"
-							aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-						<h4 class="modal-title">Notification</h4>
-					</div>
-					<div class="modal-body">
-						<div class="alert alert-danger kiri" role="alert">
-							<i class="fa fa-exclamation-triangle"></i> Are you sure want to
-							delete this Postion?
-						</div>
-					</div>
-					<div class="modal-footer">
-						<button type="submit" class="btn btn-primary">
-							<i class="fa fa-check"></i> Yes
-						</button>
-						<button type="button" class="btn btn-danger" data-dismiss="modal">
-							<i class="fa fa-close "></i> No
-						</button>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- END MODAL HAPUS-->
-		<!-- MODAL HAPUS -->
 		<div class="modal fade" id="modalYakinBank" tabindex="-1"
 			role="dialog" aria-labelledby="myModalLabel">
 			<div class="modal-dialog" role="document">
@@ -260,11 +229,11 @@
 			document.forms["PortalForm"].id.value = "undefined";
 			document.forms["PortalForm"].elements["portalBankBean.bankName"].value = "";
 			document.forms["PortalForm"].elements["portalBankBean.description"].value = "";
-			document.forms["PortalForm"].task.value = "masterOthers";
+			document.forms["PortalForm"].task.value = "masterBank";
 		}
 		
 		function editBank(id, name, desc) {
-			document.forms["PortalForm"].task.value = "masterOthers";
+			document.forms["PortalForm"].task.value = "masterBank";
 			document.forms["PortalForm"].elements["portalBankBean.bankName"].value = name;
 			document.forms["PortalForm"].elements["portalBankBean.description"].value = desc;
 			document.forms["PortalForm"].id.value = id;

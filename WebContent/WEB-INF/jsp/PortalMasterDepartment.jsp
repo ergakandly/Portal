@@ -13,7 +13,7 @@
 </head>
 
 <script type="text/javascript">
-	function flyToPage(task, id, isDeleteMasterOthers) {
+	function navigateToPage(task, id, isDeleteMasterOthers) {
 		document.forms[0].task.value = task;
 		document.forms[0].id.value = id;
 		document.forms[0].isDeleteMasterOthers.value = isDeleteMasterOthers;
@@ -49,12 +49,12 @@
 							<ul class="breadcrumb">
 								<logic:equal name="PortalForm" property="userExist" value="super">
 									<li><i class="fa fa-dashboard"></i><a
-										href="javascript:flyToPage('dashboardSuper');"> Dashboard</a></li>
+										href="javascript:navigateToPage('dashboardSuper');"> Dashboard</a></li>
 									<li><i class="fa fa-th-large"></i> Master Department</li>
 								</logic:equal>
 								<logic:notEqual name="PortalForm" property="userExist" value="super">
 									<li><i class="fa fa-dashboard"></i><a
-										href="javascript:flyToPage('dashboardUser');"> Dashboard</a></li>
+										href="javascript:navigateToPage('dashboardUser');"> Dashboard</a></li>
 									<li><i class="fa fa-th-large"></i> Master Department</li>
 								</logic:notEqual>
 							</ul>
@@ -110,7 +110,7 @@
 
 												<button type="button" class="btn btn-danger"
 													data-toggle="modal" data-target="#modalYakinDepartment"
-													onclick="javascript:flyToPage('masterOthers', '<bean:write name="portalDepartmentList" property="departmentId" />', 'department');">
+													onclick="javascript:navigateToPage('masterDepartment', '<bean:write name="portalDepartmentList" property="departmentId" />', 'department');">
 													<i class="fa fa-trash"></i> Delete
 												</button>
 
@@ -196,7 +196,7 @@
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-primary"
-							onclick="javascript:flyToPage('masterOthers', '<bean:write name="portalDepartmentList" property="departmentId" />', 'department');">
+							onclick="javascript:navigateToPage('masterDepartment', '<bean:write name="portalDepartmentList" property="departmentId" />', 'department');">
 							<i class="fa fa-check"></i> Yes
 						</button>
 						<button type="button" class="btn btn-danger" data-dismiss="modal">
@@ -234,11 +234,11 @@
 			document.forms["PortalForm"].id.value = "undefined";
 			document.forms["PortalForm"].elements["portalDepartmentBean.msDepartmentName"].value = "";
 			document.forms["PortalForm"].elements["portalDepartmentBean.description"].value = "";
-			document.forms["PortalForm"].task.value = "masterOthers";
+			document.forms["PortalForm"].task.value = "masterDepartment";
 		}
 		
 		function editDepartment(id, name, desc) {
-			document.forms["PortalForm"].task.value = "masterOthers";
+			document.forms["PortalForm"].task.value = "masterDepartment";
 			document.forms["PortalForm"].elements["portalDepartmentBean.msDepartmentName"].value = name;
 			document.forms["PortalForm"].elements["portalDepartmentBean.description"].value = desc;
 			document.forms["PortalForm"].id.value = id;

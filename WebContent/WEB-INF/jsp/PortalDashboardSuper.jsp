@@ -41,7 +41,6 @@ body {
 	margin-left: 5px;
 }
 
-
 /* The indicators */
 .carousel-indicators {
 	right: 50%;
@@ -83,7 +82,7 @@ body {
 						<li><i class="fa fa-dashboard"></i> Dashboard</a></li>
 					</ul>
 					<!-- END BREADCRUMB -->
-					<br /> <br /> <br />
+					<br />
 					<div class="row">
 						<div class="col-md-6">
 							<!-- PANEL CHART-->
@@ -93,8 +92,92 @@ body {
 										<i class="fa fa-bar-chart"></i> Chart
 									</h5>
 								</div>
-								<div class="panel-body"></div>
+								<div class="panel-body">
+									<div class="row">
+										<div id="Carousel2" class="carousel slide">
+											<ol class="carousel-indicators">
+												<li data-target="#Carousel2" data-slide-to="0"
+													class="active"></li>
+												<li data-target="#Carousel2" data-slide-to="1"></li>
+												<li data-target="#Carousel2" data-slide-to="2"></li>
+												<li data-target="#Carousel2" data-slide-to="3"></li>
+											</ol>
+
+											<!-- Carousel items -->
+											<div class="carousel-inner">
+												<div class="item active">
+													<div class="row">
+														<div class="col-md-12 tengah">
+															<img alt="Attendance"
+																src="/HRIS_Portal/chart.do?method=getPastAttendance">
+														</div>
+													</div>
+												</div>
+												<!--.row-->
+												<div class="item">
+													<div class="row">
+														<div class="col-md-12 tengah">
+															<img alt="Late"
+																src="/HRIS_Portal/chart.do?method=getPastLate">
+														</div>
+													</div>
+												</div>
+												<!--.row-->
+												<div class="item">
+													<div class="row">
+														<div class="col-md-12 tengah">
+															<img alt="Working Hours"
+																src="/HRIS_Portal/chart.do?method=getPastWorkingHours">
+														</div>
+													</div>
+												</div>
+												<!--.row-->
+												<div class="item">
+													<div class="row">
+														<div class="col-md-12 tengah">
+															<img alt="Leave"
+																src="/HRIS_Portal/chart.do?method=getPastLeave">
+														</div>
+													</div>
+												</div>
+												<!--.row-->
+
+												<!--.item-->
+											</div>
+											<!--.carousel-inner-->
+											<a data-slide="prev" href="#Carousel2"
+												class="left carousel-control">&lt;</a> <a data-slide="next"
+												href="#Carousel2" class="right carousel-control">&gt;</a>
+										</div>
+										<!--.Carousel-->
+									</div>
+								</div>
 							</div>
+
+							<!-- PANEL LEAVE-->
+							<div class="panel panel-info">
+								<div class="panel-heading">
+									<h5 class="panel-title">
+										<i class="fa fa-info-circle"></i> Next Leave Day
+									</h5>
+								</div>
+								<div class="panel-body">
+									<table align="center"
+										class="table table-striped table-hover table-condensed">
+										<tbody>
+											<tr>
+												<td class="kanan fontBold" width="25%">30 Desember 2015 :</td>
+												<td width="75%">Leave Mass New Year</td>
+											</tr>
+											<tr>
+												<td class="kanan fontBold">1 Januari 2016 :</td>
+												<td>New Year 2016</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+							<!-- END PANEL -->
 							<!-- END PANEL -->
 						</div>
 						<div class="col-md-6">
@@ -107,9 +190,7 @@ body {
 								</div>
 								<div class="panel-body tengah">
 									<div class="row">
-
 										<div id="Carousel" class="carousel slide">
-
 											<ol class="carousel-indicators">
 												<li data-target="#Carousel" data-slide-to="0" class="active"></li>
 												<li data-target="#Carousel" data-slide-to="1"></li>
@@ -209,36 +290,30 @@ body {
 									</h5>
 								</div>
 								<div class="panel-body">
-									<ul>
-										<li>Guntur Gozali has approved your request leave</li>
-										<li>Satria has approved your request leave</li>
-										<li>Donny Setiawan has approved your request leave</li>
-										<li>Erga Kandly has approved your request leave</li>
-										<li>Edwin has approved your request leave</li>
-									</ul>
-								</div>
-							</div>
-							<!-- END PANEL -->
-						</div>
-						<div class="col-md-12">
-							<!-- PANEL CHART-->
-							<div class="panel panel-info">
-								<div class="panel-heading">
-									<h5 class="panel-title">
-										<i class="fa fa-info-circle"></i> Next Leave Day
-									</h5>
-								</div>
-								<div class="panel-body">
-									<ul>
-										<li>30 Desember 2015 : Leave Mass New Year</li>
-										<li>1 Januari 2016 : New Year 2016</li>
-									</ul>
+									<table align="center"
+										class="table table-striped table-hover table-condensed">
+										<tbody>
+											<tr>
+												<td>Guntur2 Gozali has approved your request leave</td>
+											</tr>
+											<tr>
+												<td>Guntur Gozali has approved your request leave</td>
+											</tr>
+											<tr>
+												<td>Guntur Gozali has approved your request leave</td>
+											</tr>
+											<tr>
+												<td>Guntur Gozali has approved your request leave</td>
+											</tr>
+											<tr>
+											</tr>
+										</tbody>
+									</table>
 								</div>
 							</div>
 							<!-- END PANEL -->
 						</div>
 					</div>
-
 				</div>
 			</div>
 			<!-- END ROW 12 -->
@@ -254,6 +329,11 @@ body {
 	<script>
 	$(document).ready(function() {
 	    $('#Carousel').carousel({
+	        interval: 5000
+	    })
+	});
+	$(document).ready(function() {
+	    $('#Carousel2').carousel({
 	        interval: 5000
 	    })
 	});

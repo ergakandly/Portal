@@ -13,7 +13,7 @@
 </head>
 
 <script type="text/javascript">
-	function flyToPage(task, id, isDeleteMasterOthers) {
+	function navigateToPage(task, id, isDeleteMasterOthers) {
 		document.forms[0].task.value = task;
 		document.forms[0].id.value = id;
 		document.forms[0].isDeleteMasterOthers.value = isDeleteMasterOthers;
@@ -49,12 +49,12 @@
 							<ul class="breadcrumb">
 								<logic:equal name="PortalForm" property="userExist" value="super">
 									<li><i class="fa fa-dashboard"></i><a
-										href="javascript:flyToPage('dashboardSuper');"> Dashboard</a></li>
+										href="javascript:navigateToPage('dashboardSuper');"> Dashboard</a></li>
 									<li><i class="fa fa-th-large"></i> Master City</li>
 								</logic:equal>
 								<logic:notEqual name="PortalForm" property="userExist" value="super">
 									<li><i class="fa fa-dashboard"></i><a
-										href="javascript:flyToPage('dashboardUser');"> Dashboard</a></li>
+										href="javascript:navigateToPage('dashboardUser');"> Dashboard</a></li>
 									<li><i class="fa fa-th-large"></i> Master City</li>
 								</logic:notEqual>
 							</ul>
@@ -107,7 +107,7 @@
 												</button>
 												<button type="button" class="btn btn-danger"
 													data-toggle="modal" data-target="#modalYakinCity"
-													onclick="javascript:flyToPage('masterOthers', '<bean:write name="portalCityList" property="cityId" />', 'city');">
+													onclick="javascript:navigateToPage('masterCity', '<bean:write name="portalCityList" property="cityId" />', 'city');">
 													<i class="fa fa-trash"></i> Delete
 												</button>
 											</td>
@@ -223,11 +223,11 @@
 			document.forms["PortalForm"].id.value = "undefined";
 			document.forms["PortalForm"].elements["portalCityBean.cityProvinceId"].value = "";
 			document.forms["PortalForm"].elements["portalCityBean.cityName"].value = "";
-			document.forms["PortalForm"].task.value = "masterOthers";
+			document.forms["PortalForm"].task.value = "masterCity";
 		}
 		
 		function editCity(id, idProv, name) {
-			document.forms["PortalForm"].task.value = "masterOthers";
+			document.forms["PortalForm"].task.value = "masterCity";
 			document.forms["PortalForm"].elements["portalCityBean.cityProvinceId"].value = idProv;
 			document.forms["PortalForm"].elements["portalCityBean.cityName"].value = name;
 			document.forms["PortalForm"].id.value = id;

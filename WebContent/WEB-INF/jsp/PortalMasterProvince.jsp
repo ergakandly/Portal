@@ -13,7 +13,7 @@
 </head>
 
 <script type="text/javascript">
-	function flyToPage(task, id, isDeleteMasterOthers) {
+	function navigateToPage(task, id, isDeleteMasterOthers) {
 		document.forms[0].task.value = task;
 		document.forms[0].id.value = id;
 		document.forms[0].isDeleteMasterOthers.value = isDeleteMasterOthers;
@@ -49,12 +49,12 @@
 							<ul class="breadcrumb">
 								<logic:equal name="PortalForm" property="userExist" value="super">
 									<li><i class="fa fa-dashboard"></i><a
-										href="javascript:flyToPage('dashboardSuper');"> Dashboard</a></li>
+										href="javascript:navigateToPage('dashboardSuper');"> Dashboard</a></li>
 									<li><i class="fa fa-th-large"></i> Master Province</li>
 								</logic:equal>
 								<logic:notEqual name="PortalForm" property="userExist" value="super">
 									<li><i class="fa fa-dashboard"></i><a
-										href="javascript:flyToPage('dashboardUser');"> Dashboard</a></li>
+										href="javascript:navigateToPage('dashboardUser');"> Dashboard</a></li>
 									<li><i class="fa fa-th-large"></i> Master Province</li>
 								</logic:notEqual>
 							</ul>
@@ -108,8 +108,8 @@
 													</button>
 
 													<button type="button" class="btn btn-danger"
-														data-toggle="modal" data-target="#modalYakinProvince"
-														onclick="javascript:flyToPage('masterOthers', '<bean:write name="portalProvinceList" property="provinceId" />', 'province');">
+														data-toggle="modal" data-backdrop="static" data-target="#modalYakinProvince"
+														onclick="javascript:navigateToPage('masterProvince', '<bean:write name="portalProvinceList" property="provinceId" />', 'province');">
 														<i class="fa fa-trash"></i> Delete
 													</button>
 												</td>
@@ -196,7 +196,6 @@
 								</div>
 							</div>
 							<!-- END MODAL HAPUS-->
-
 							<%@include file="PartJavascript.jsp"%>
 							<script type="text/javascript">
 		$(document).ready(function() {
@@ -223,11 +222,11 @@
 			document.forms["PortalForm"].id.value = "undefined";
 //				document.forms["PortalForm"].elements["portalProvinceBean.provinceId"].value = "";
 			document.forms["PortalForm"].elements["portalProvinceBean.provinceName"].value = "";
-			document.forms["PortalForm"].task.value = "masterOthers";
+			document.forms["PortalForm"].task.value = "masterProvince";
 		}
 		
 		function editProvince(id, name) {
-			document.forms["PortalForm"].task.value = "masterOthers";
+			document.forms["PortalForm"].task.value = "masterProvince";
 			document.forms["PortalForm"].elements["portalProvinceBean.provinceName"].value = name;
 //				document.forms["PortalForm"].elements["portalProvinceBean.provinceId"].value = id;
 			document.forms["PortalForm"].id.value = id;
