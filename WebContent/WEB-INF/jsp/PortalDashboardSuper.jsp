@@ -20,6 +20,44 @@
 		document.forms[0].submit();
 	}
 </script>
+<style>
+body {
+	padding-top: 20px;
+}
+
+.carousel {
+	margin-bottom: 0;
+	padding: 0 40px 30px 40px;
+}
+/* The controlsy */
+.carousel-control {
+	left: -12px;
+	height: 40px;
+	width: 40px;
+	background: none repeat scroll 0 0 #222222;
+	border: 4px solid #FFFFFF;
+	border-radius: 23px 23px 23px 23px;
+	margin-top: 60px;
+	margin-left: 5px;
+}
+
+
+/* The indicators */
+.carousel-indicators {
+	right: 50%;
+	top: auto;
+	bottom: -10px;
+	margin-right: -19px;
+}
+/* The colour of the indicators */
+.carousel-indicators li {
+	background: #cecece;
+}
+
+.carousel-indicators .active {
+	background: #428bca;
+}
+</style>
 
 <body>
 	<html:form method="post" action="/portal">
@@ -46,53 +84,179 @@
 					</ul>
 					<!-- END BREADCRUMB -->
 					<br /> <br /> <br />
-					<div class="tengah">
-						<button class="btn btn-default iconDashboard" type="button"
-							onclick="javascript:flyToPage('masterRole');">
-							<span class="glyphicon glyphicon-king" style="font-size: 100px;"></span><br>
-							<h3>Roles</h3>
-						</button>
-						<button class="btn btn-default iconDashboard" type="button"
-							onclick="javascript:flyToPage('assignRoleEmployee');">
-							<span class="glyphicon glyphicon-screenshot"
-								style="font-size: 100px;"></span><br>
-							<h3>User Activation</h3>
-						</button>
-						<button class="btn btn-default iconDashboard" type="button"
-							onclick="javascript:flyToPage('masterModul');">
-							<span class="glyphicon glyphicon-th-large"
-								style="font-size: 100px;"></span><br>
-							<h3>Modules</h3>
-						</button>						
-						<logic:notEmpty name="PortalForm" property="listPortalMasterRoleMenu">
-							<logic:iterate id="portalMasterRoleMenuList" name="PortalForm" property="listPortalMasterRoleMenu">
-								<bean:define id="url" name="portalMasterRoleMenuList" property="urlMenuRole"/>
-								<% String newurl = null;
-								   String urlstr=url.toString();
-								   int max = urlstr.length();
-								   
-									if(urlstr.contains("location"))
-										newurl = urlstr.substring(0, max-1) + request.getAttribute("zx") + "'";
-									else
-										newurl = url.toString(); %>
-								<button class="btn btn-default iconDashboard" type="button"
-									onclick="<%= newurl.toString() %>">
-									<span class="<bean:write name="portalMasterRoleMenuList" property="icon" />"
-										style="font-size: 100px;"></span><br>
-									<h3><bean:write name="portalMasterRoleMenuList" property="menuName" /></h3>
-								</button>
-							</logic:iterate>
-						</logic:notEmpty>								
-						<br> <br>
+					<div class="row">
+						<div class="col-md-6">
+							<!-- PANEL CHART-->
+							<div class="panel panel-success ">
+								<div class="panel-heading">
+									<h5 class="panel-title">
+										<i class="fa fa-bar-chart"></i> Chart
+									</h5>
+								</div>
+								<div class="panel-body"></div>
+							</div>
+							<!-- END PANEL -->
+						</div>
+						<div class="col-md-6">
+							<!-- PANEL MENU-->
+							<div class="panel panel-info ">
+								<div class="panel-heading">
+									<h5 class="panel-title">
+										<i class="fa fa-th-large"></i> Menu
+									</h5>
+								</div>
+								<div class="panel-body tengah">
+									<div class="row">
+
+										<div id="Carousel" class="carousel slide">
+
+											<ol class="carousel-indicators">
+												<li data-target="#Carousel" data-slide-to="0" class="active"></li>
+												<li data-target="#Carousel" data-slide-to="1"></li>
+											</ol>
+
+											<!-- Carousel items -->
+											<div class="carousel-inner">
+
+												<div class="item active">
+													<div class="row">
+														<div class="col-md-4">
+															<button class="btn btn-default iconDashboard"
+																type="button"
+																onclick="javascript:flyToPage('masterRole');">
+																<span class="glyphicon glyphicon-king"
+																	style="font-size: 60px;"></span><br>
+																<h3>Roles</h3>
+															</button>
+														</div>
+														<div class="col-md-4">
+															<button class="btn btn-default iconDashboard"
+																type="button"
+																onclick="javascript:flyToPage('assignRoleEmployee');">
+																<span class="glyphicon glyphicon-screenshot"
+																	style="font-size: 60px;"></span><br>
+																<h3>Activation</h3>
+															</button>
+														</div>
+														<div class="col-md-4">
+															<button class="btn btn-default iconDashboard"
+																type="button"
+																onclick="javascript:flyToPage('masterModul');">
+																<span class="glyphicon glyphicon-th-large"
+																	style="font-size: 60px;"></span><br>
+																<h3>Modules</h3>
+															</button>
+														</div>
+													</div>
+													<!--.row-->
+												</div>
+												<!--.item-->
+
+												<div class="item">
+													<div class="row">
+														<logic:notEmpty name="PortalForm"
+															property="listPortalMasterRoleMenu">
+															<logic:iterate id="portalMasterRoleMenuList"
+																name="PortalForm" property="listPortalMasterRoleMenu">
+																<bean:define id="url" name="portalMasterRoleMenuList"
+																	property="urlMenuRole" />
+																<%
+																	String newurl = null;
+																				String urlstr = url.toString();
+																				int max = urlstr.length();
+
+																				if (urlstr.contains("location"))
+																					newurl = urlstr.substring(0, max - 1) + request.getAttribute("zx") + "'";
+																				else
+																					newurl = url.toString();
+																%>
+																<div class="col-md-3">
+																	<button class="btn btn-default iconDashboard"
+																		type="button" onclick="<%=newurl.toString()%>">
+																		<span
+																			class="<bean:write name="portalMasterRoleMenuList" property="icon" />"
+																			style="font-size: 60px;"></span><br>
+																		<h3>
+																			<bean:write name="portalMasterRoleMenuList"
+																				property="menuName" />
+																		</h3>
+																	</button>
+																</div>
+															</logic:iterate>
+														</logic:notEmpty>
+													</div>
+													<!--.row-->
+												</div>
+												<!--.item-->
+											</div>
+											<!--.carousel-inner-->
+											<a data-slide="prev" href="#Carousel"
+												class="left carousel-control">&lt;</a> <a data-slide="next"
+												href="#Carousel" class="right carousel-control">&gt;</a>
+										</div>
+										<!--.Carousel-->
+
+									</div>
+								</div>
+							</div>
+							<!-- PANEL -->
+
+							<!-- PANEL NOTIFICATION-->
+							<div class="panel panel-danger">
+								<div class="panel-heading">
+									<h5 class="panel-title">
+										<i class="fa fa-bell"></i> Notification
+									</h5>
+								</div>
+								<div class="panel-body">
+									<ul>
+										<li>Guntur Gozali has approved your request leave</li>
+										<li>Satria has approved your request leave</li>
+										<li>Donny Setiawan has approved your request leave</li>
+										<li>Erga Kandly has approved your request leave</li>
+										<li>Edwin has approved your request leave</li>
+									</ul>
+								</div>
+							</div>
+							<!-- END PANEL -->
+						</div>
+						<div class="col-md-12">
+							<!-- PANEL CHART-->
+							<div class="panel panel-info">
+								<div class="panel-heading">
+									<h5 class="panel-title">
+										<i class="fa fa-info-circle"></i> Next Leave Day
+									</h5>
+								</div>
+								<div class="panel-body">
+									<ul>
+										<li>30 Desember 2015 : Leave Mass New Year</li>
+										<li>1 Januari 2016 : New Year 2016</li>
+									</ul>
+								</div>
+							</div>
+							<!-- END PANEL -->
+						</div>
 					</div>
+
 				</div>
 			</div>
 			<!-- END ROW 12 -->
+		</div>
+		</div>
+		<!-- END ROW 12 -->
 		</div>
 		<!-- END CONTAINER -->
 
 	</html:form>
 	<!-- JAVASCRIPT -->
 	<%@include file="PartJavascript.jsp"%>
+	<script>
+	$(document).ready(function() {
+	    $('#Carousel').carousel({
+	        interval: 5000
+	    })
+	});
+	</script>
 </body>
 </html>

@@ -29,9 +29,7 @@
 
 		<div id="wrapper">
 			<%@include file="PartNavbar.jsp"%>
-
 			<div id="page-wrapper">
-
 				<!-- CONTAINER -->
 				<div class="container-fluid"">
 					<div class="row">
@@ -48,32 +46,103 @@
 							</ul>
 							<!-- END BREADCRUMB -->
 							<br /> <br /> <br />
-							<img alt="Departments - Total Attendance Graph" src="/HRIS_Portal/chart.do">
-							<!-- ICON MENU -->
-							<div class="tengah">
-								<logic:notEmpty name="PortalForm" property="listPortalMasterRoleMenu">
-									<logic:iterate id="portalMasterRoleMenuList" name="PortalForm" property="listPortalMasterRoleMenu">
-										<bean:define id="url" name="portalMasterRoleMenuList" property="urlMenuRole"/>
-										<% String newurl = null;
-										   String urlstr=url.toString();
-										   int max = urlstr.length();
-										   
-											if(urlstr.contains("location"))
-												newurl = urlstr.substring(0, max-1) + request.getAttribute("zx") + "'"; 
-											else
-												newurl = url.toString(); %>
-										<button class="btn btn-default iconDashboard" type="button"
-											onclick="<%= newurl.toString() %>">
-											<span class="<bean:write name="portalMasterRoleMenuList" property="icon" />"
-												style="font-size: 100px;"></span><br>
-											<h3><bean:write name="portalMasterRoleMenuList" property="menuName" /></h3>
-										</button>
-									</logic:iterate>
-								</logic:notEmpty>
-								<br> <br>
-							</div>
-							<!-- END ICON MENU -->
+							<div class="row">
+								<div class="col-md-6">
+									<!-- PANEL CHART-->
+									<div class="panel panel-success ">
+										<div class="panel-heading">
+											<h5 class="panel-title">
+												<i class="fa fa-bar-chart"></i> Chart
+											</h5>
+										</div>
+										<div class="panel-body">
+											<img alt="Departments - Total Attendance Graph"
+												src="/HRIS_Portal/chart.do">
+										</div>
+									</div>
+									<!-- END PANEL -->
+								</div>
+								<div class="col-md-6">
+									<!-- PANEL MENU-->
+									<div class="panel panel-info ">
+										<div class="panel-heading">
+											<h5 class="panel-title">
+												<i class="fa fa-th-large"></i> Menu
+											</h5>
+										</div>
+										<div class="panel-body tengah">
 
+											<logic:notEmpty name="PortalForm"
+												property="listPortalMasterRoleMenu">
+												<logic:iterate id="portalMasterRoleMenuList"
+													name="PortalForm" property="listPortalMasterRoleMenu">
+													<bean:define id="url" name="portalMasterRoleMenuList"
+														property="urlMenuRole" />
+													<%
+														String newurl = null;
+																	String urlstr = url.toString();
+																	int max = urlstr.length();
+
+																	if (urlstr.contains("location"))
+																		newurl = urlstr.substring(0, max - 1) + request.getAttribute("zx") + "'";
+																	else
+																		newurl = url.toString();
+													%>
+													<div class="col-md-3">
+														<button class="btn btn-default iconDashboard"
+															type="button" onclick="<%=newurl.toString()%>">
+															<span
+																class="<bean:write name="portalMasterRoleMenuList" property="icon" />"
+																style="font-size: 60px;"></span><br>
+															<h3>
+																<bean:write name="portalMasterRoleMenuList"
+																	property="menuName" />
+															</h3>
+														</button>
+													</div>
+												</logic:iterate>
+											</logic:notEmpty>
+										</div>
+									</div>
+									<!-- PANEL -->
+
+									<!-- PANEL NOTIFICATION-->
+									<div class="panel panel-danger">
+										<div class="panel-heading">
+											<h5 class="panel-title">
+												<i class="fa fa-bell"></i> Notification
+											</h5>
+										</div>
+										<div class="panel-body">
+											<ul>
+												<li>Guntur Gozali has approved your request leave</li>
+												<li>Satria has approved your request leave</li>
+												<li>Donny Setiawan has approved your request leave</li>
+												<li>Erga Kandly has approved your request leave</li>
+												<li>Edwin has approved your request leave</li>
+											</ul>
+										</div>
+									</div>
+									<!-- END PANEL -->
+								</div>
+								<div class="col-md-12">
+									<!-- PANEL CHART-->
+									<div class="panel panel-info">
+										<div class="panel-heading">
+											<h5 class="panel-title">
+												<i class="fa fa-info-circle"></i> Next Leave Day
+											</h5>
+										</div>
+										<div class="panel-body">
+											<ul>
+												<li>30 Desember 2015 : Leave Mass New Year</li>
+												<li>1 Januari 2016 : New Year 2016</li>
+											</ul>
+										</div>
+									</div>
+									<!-- END PANEL -->
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>

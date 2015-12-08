@@ -8,6 +8,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+
 <%@include file="PartBootstrap.jsp"%>
 
 <title>Dashboard Admin</title>
@@ -48,44 +49,84 @@
 					<br /> <br /> <br />
 					<div class="row">
 						<div class="col-md-6">
-							<h3>
-								<small><b>CHART</b></small>
-							</h3>
-							<hr style="margin: -5px 0 5px 0">
+							<!-- PANEL CHART-->
+							<div class="panel panel-success ">
+								<div class="panel-heading">
+									<h5 class="panel-title">
+										<i class="fa fa-bar-chart"></i> Chart
+									</h5>
+								</div>
+								<div class="panel-body"></div>
+							</div>
+							<!-- END PANEL -->
 						</div>
 						<div class="col-md-6">
-							<h3>
-								<small><b>MENU</b></small>
-							</h3>
-							<hr style="margin: -5px 0 5px 0">
-							</td>
-							<button class="btn btn-default iconDashboard" type="button"
-								onclick="javascript:flyToPage('masterRole');">
-								<span class="glyphicon glyphicon-king" style="font-size: 100px;"></span><br>
-								<h3>Roles</h3>
-							</button>
-							<button class="btn btn-default iconDashboard" type="button"
-								onclick="javascript:flyToPage('assignRoleEmployee');">
-								<span class="glyphicon glyphicon-screenshot"
-									style="font-size: 100px;"></span><br>
-								<h3>User Activation</h3>
-							</button>
-							<button class="btn btn-default iconDashboard" type="button"
-								onclick="javascript:flyToPage('masterModul');">
-								<span class="glyphicon glyphicon-th-large"
-									style="font-size: 100px;"></span><br>
-								<h3>Modules</h3>
-							</button>
-							<br> <br>
+							<!-- PANEL MENU-->
+							<div class="panel panel-info ">
+								<div class="panel-heading">
+									<h5 class="panel-title">
+										<i class="fa fa-th-large"></i> Menu
+									</h5>
+								</div>
+								<div class="panel-body tengah">
+									<button class="btn btn-default iconDashboard" type="button"
+										onclick="javascript:flyToPage('masterRole');">
+										<span class="glyphicon glyphicon-king"
+											style="font-size: 60px;"></span><br>
+										<h3>Roles</h3>
+									</button>
+									<button class="btn btn-default iconDashboard" type="button"
+										onclick="javascript:flyToPage('assignRoleEmployee');">
+										<span class="glyphicon glyphicon-screenshot"
+											style="font-size: 60px;"></span><br>
+										<h3>Activation</h3>
+									</button>
+									<button class="btn btn-default iconDashboard" type="button"
+										onclick="javascript:flyToPage('masterModul');">
+										<span class="glyphicon glyphicon-th-large"
+											style="font-size: 60px;"></span><br>
+										<h3>Modules</h3>
+									</button>
+									<br> <br>
+								</div>
+							</div>
+							<!-- PANEL -->
+
+							<!-- PANEL NOTIFICATION-->
+							<div class="panel panel-danger">
+								<div class="panel-heading">
+									<h5 class="panel-title">
+										<i class="fa fa-bell"></i> Notification
+									</h5>
+								</div>
+								<div class="panel-body">
+									<ul>
+										<li>Guntur Gozali has approved your request leave</li>
+										<li>Satria has approved your request leave</li>
+										<li>Donny Setiawan has approved your request leave</li>
+										<li>Erga Kandly has approved your request leave</li>
+										<li>Edwin has approved your request leave</li>
+									</ul>
+								</div>
+							</div>
+							<!-- END PANEL -->
 						</div>
 						<div class="col-md-12">
-							<div class="alert alert-info alert-dismissible" role="alert">
-								<button type="button" class="close" data-dismiss="alert"
-									aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-								<i class="fa fa-info-circle"></i> <strong>Notification : </strong> 1 Pending Request
+							<!-- PANEL CHART-->
+							<div class="panel panel-info">
+								<div class="panel-heading">
+									<h5 class="panel-title">
+										<i class="fa fa-info-circle"></i> Next Leave Day
+									</h5>
+								</div>
+								<div class="panel-body">
+									<ul>
+										<li>30 Desember 2015 : Leave Mass New Year</li>
+										<li>1 Januari 2016 : New Year 2016</li>
+									</ul>
+								</div>
 							</div>
+							<!-- END PANEL -->
 						</div>
 					</div>
 
