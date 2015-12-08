@@ -139,8 +139,7 @@
 					<div class="modal-body">
 						<table class="table table-borderless">
 							<tr>
-								<td class="kanan">Bank Name <font color="red">*</font> :
-								</td>
+								<td class="kanan">Bank Name :</td>
 								<td><div class="form-group">
 										<html:text styleClass="form-control form-control-md"
 											name="PortalForm" property="portalBankBean.bankName" />
@@ -206,14 +205,12 @@
 
 		<%@include file="PartJavascript.jsp"%>
 		<script type="text/javascript">
-		$(document).ready(function() {
 			$(document).ready(function() {
 				$('#sortBank').dataTable({
 					"columns" : [ null, null, {
 						"orderable" : false
 					} ]
 				});
-		});
 		
 		$(function() {
 			$('#addBtnBank').click(function() {
