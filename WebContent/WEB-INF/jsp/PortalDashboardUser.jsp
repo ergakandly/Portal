@@ -252,26 +252,28 @@ body {
 														aria-label="Close">
 														<span aria-hidden="true">&times;</span>
 													</button>
-													<i class="fa fa-info-circle"></i>
 													<logic:notEqual name="totalPendingLeaveApproval"
 														scope="request" value="0">
+														<i class="fa fa-info-circle"></i>
 														<bean:write name="totalPendingLeaveApproval"
 															scope="request" />
-														<strong>leave </strong>request(s) is waiting for your <strong>approval</strong>
+														<strong>leave </strong>request(s) is waiting for your <strong>approval</strong><br>
 													</logic:notEqual>
 
 													<logic:notEqual name="totalPendingExtraQuotaApproval"
 														scope="request" value="0">
+														<i class="fa fa-info-circle"></i>
 														<bean:write name="totalPendingExtraQuotaApproval"
 															scope="request" />
-														<strong>extra quota</strong> request(s) is waiting for your <strong>approval</strong>
+														<strong>extra quota</strong> request(s) is waiting for your <strong>approval</strong><br/>
 													</logic:notEqual>
 
 													<logic:notEqual name="totalPendingAttendanceApproval"
 														scope="request" value="0">
+														<i class="fa fa-info-circle"></i>
 														<bean:write name="totalPendingAttendanceApproval"
 															scope="request" />
-														<strong>attendance</strong> request(s) is waiting for your <strong>approval</strong>
+														<strong>attendance</strong> request(s) is waiting for your <strong>approval</strong><br/>
 													</logic:notEqual>
 												</div>
 											</logic:notEqual>
