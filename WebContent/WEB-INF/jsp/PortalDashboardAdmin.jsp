@@ -46,26 +46,49 @@
 					</ul>
 					<!-- END BREADCRUMB -->
 					<br /> <br /> <br />
-					<div class="tengah">
-						<button class="btn btn-default iconDashboard" type="button"
-							onclick="javascript:flyToPage('masterRole');">
-							<span class="glyphicon glyphicon-king" style="font-size: 100px;"></span><br>
-							<h3>Roles</h3>
-						</button>
-						<button class="btn btn-default iconDashboard" type="button"
-							onclick="javascript:flyToPage('assignRoleEmployee');">
-							<span class="glyphicon glyphicon-screenshot"
-								style="font-size: 100px;"></span><br>
-							<h3>User Activation</h3>
-						</button>
-						<button class="btn btn-default iconDashboard" type="button"
-							onclick="javascript:flyToPage('masterModul');">
-							<span class="glyphicon glyphicon-th-large"
-								style="font-size: 100px;"></span><br>
-							<h3>Modules</h3>
-						</button>
-						<br> <br>
+					<div class="row">
+						<div class="col-md-6">
+							<h3>
+								<small><b>CHART</b></small>
+							</h3>
+							<hr style="margin: -5px 0 5px 0">
+						</div>
+						<div class="col-md-6">
+							<h3>
+								<small><b>MENU</b></small>
+							</h3>
+							<hr style="margin: -5px 0 5px 0">
+							</td>
+							<button class="btn btn-default iconDashboard" type="button"
+								onclick="javascript:flyToPage('masterRole');">
+								<span class="glyphicon glyphicon-king" style="font-size: 100px;"></span><br>
+								<h3>Roles</h3>
+							</button>
+							<button class="btn btn-default iconDashboard" type="button"
+								onclick="javascript:flyToPage('assignRoleEmployee');">
+								<span class="glyphicon glyphicon-screenshot"
+									style="font-size: 100px;"></span><br>
+								<h3>User Activation</h3>
+							</button>
+							<button class="btn btn-default iconDashboard" type="button"
+								onclick="javascript:flyToPage('masterModul');">
+								<span class="glyphicon glyphicon-th-large"
+									style="font-size: 100px;"></span><br>
+								<h3>Modules</h3>
+							</button>
+							<br> <br>
+						</div>
+						<div class="col-md-12">
+							<div class="alert alert-info alert-dismissible" role="alert">
+								<button type="button" class="close" data-dismiss="alert"
+									aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+								<i class="fa fa-info-circle"></i> <strong>Notification : </strong> 1 Pending Request
+							</div>
+						</div>
 					</div>
+
 				</div>
 			</div>
 			<!-- END ROW 12 -->

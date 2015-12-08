@@ -79,14 +79,6 @@ li.message-footer {
 
 </style>
 <script type="text/javascript">
-
-// 	function flyToPage(task, id) {
-// 	//		alert(document.forms[0].addRoleName.value);	
-// 		document.forms[0].task.value = task;
-// 		document.forms[0].id.value = id;
-// 		document.forms[0].submit();
-// 	}
-
 	function flyToPage(task) {
 		document.forms[0].task.value = task;
 		document.forms[0].submit();
@@ -106,65 +98,6 @@ li.message-footer {
 	<!-- END LOGO -->
 
 	<ul class="nav navbar-nav navbar-right">
-		<li><label id="timeText"></label></li>
-		<!-- DROPDOWN NOTIFICATION -->
-		<li class="dropdown"><a href="#" class="dropdown-toggle"
-			data-toggle="dropdown"><span class="glyphicon glyphicon-bell"></span>
-				<span class="badge">3</span> <b class="caret"></b></a>
-			<ul class="dropdown-menu message-dropdown">
-				<li class="message-preview"><a href="#">
-						<div class="media">
-							<span class="pull-left"> <img class="media-object"
-								src="http://placehold.it/50x50" alt="">
-							</span>
-							<div class="media-body">
-								<h5 class="media-heading">
-									<strong>John Smith</strong>
-								</h5>
-								<p class="small text-muted">
-									<i class="fa fa-clock-o"></i> Yesterday at 4:32 PM
-								</p>
-								<p>Lorem ipsum dolor sit amet, consectetur...</p>
-							</div>
-						</div>
-				</a></li>
-				<li class="message-preview"><a href="#">
-						<div class="media">
-							<span class="pull-left"> <img class="media-object"
-								src="http://placehold.it/50x50" alt="">
-							</span>
-							<div class="media-body">
-								<h5 class="media-heading">
-									<strong>John Smith</strong>
-								</h5>
-								<p class="small text-muted">
-									<i class="fa fa-clock-o"></i> Yesterday at 4:32 PM
-								</p>
-								<p>Lorem ipsum dolor sit amet, consectetur...</p>
-							</div>
-						</div>
-				</a></li>
-				<li class="message-preview"><a href="#">
-						<div class="media">
-							<span class="pull-left"> <img class="media-object"
-								src="http://placehold.it/50x50" alt="">
-							</span>
-							<div class="media-body">
-								<h5 class="media-heading">
-									<strong>John Smith</strong>
-								</h5>
-								<p class="small text-muted">
-									<i class="fa fa-clock-o"></i> Yesterday at 4:32 PM
-								</p>
-								<p>Lorem ipsum dolor sit amet, consectetur...</p>
-							</div>
-						</div>
-				</a></li>
-				<li class="message-footer" ><a href="#">Read All New
-						Messages</a></li>
-			</ul></li>
-		<!-- END NOTIFICATION -->
-
 		<!-- DROPDOWN USER -->
 		<li class="dropdown"><a href="#" class="dropdown-toggle"
 			data-toggle="dropdown"><i class=" fa fa-user"></i> Hi, <%= request.getSession().getAttribute("employeeName") %> <b
