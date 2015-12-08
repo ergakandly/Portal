@@ -40,16 +40,14 @@ public class PortalFilter implements Filter {
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpServletResponse res = (HttpServletResponse) response;
 		
-		String uri = req.getRequestURI();
 		this.context.log("Requested Resource::PORTAL");
-		
 		HttpSession session = req.getSession(false);
 		
-		if (null == session && !(uri.endsWith("do") || null == session.getAttribute("username"))) {
+		if (null == session.getAttribute("username")) {
 			this.context.log("Unauthorized access request - PORTAL");
 			
-			PortalManager pManager = new PortalManager();
-			res.sendRedirect("http://localhost:8080"+pManager.getPortalUrl());
+			PortalManager manager = new PortalManager();
+			res.sendRedirect(manager.getPortalUrl());
 		}
 		else
 			chain.doFilter(request, response);
