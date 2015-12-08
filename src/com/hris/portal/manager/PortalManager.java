@@ -42,7 +42,9 @@ public class PortalManager {
 
 		try {
 			list = ibatis.queryForList("employees.getEmployee", map);
-		} catch (SQLException e) {
+		} catch (SQLException s) {
+			s.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return list;
@@ -53,7 +55,9 @@ public class PortalManager {
 
 		try {
 			portalDeptBean = (PortalDepartmentBean) ibatis.queryForObject("employees.getOneEmp", empId);
-		} catch (SQLException e) {
+		} catch (SQLException s) {
+			s.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return portalDeptBean;
@@ -64,7 +68,9 @@ public class PortalManager {
 
 		try {
 			list = ibatis.queryForList("employees.getRoleName", "");
-		} catch (SQLException e) {
+		} catch (SQLException s) {
+			s.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return list;
@@ -75,7 +81,9 @@ public class PortalManager {
 
 		try {
 			list = ibatis.queryForList("employees.getUserList", "");
-		} catch (SQLException e) {
+		} catch (SQLException s) {
+			s.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return list;
@@ -86,7 +94,9 @@ public class PortalManager {
 
 		try {
 			list = ibatis.queryForList("employees.getDepartmentName", "");
-		} catch (SQLException e) {
+		} catch (SQLException s) {
+			s.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return list;
@@ -97,7 +107,9 @@ public class PortalManager {
 
 		try {
 			list = ibatis.queryForList("employees.getRoleList", "");
-		} catch (SQLException e) {
+		} catch (SQLException s) {
+			s.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return list;
@@ -121,7 +133,9 @@ public class PortalManager {
 			ibatis.startTransaction();
 			ibatis.insert("employees.insertUser", map);
 			ibatis.commitTransaction();
-		} catch (SQLException e) {
+		} catch (SQLException s) {
+			s.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			try {
@@ -138,7 +152,9 @@ public class PortalManager {
 
 		try {
 			list = ibatis.queryForList("employees.getMasterRoleName", "");
-		} catch (SQLException e) {
+		} catch (SQLException s) {
+			s.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return list;
@@ -150,7 +166,9 @@ public class PortalManager {
 
 		try {
 			list = ibatis.queryForList("employees.getMenuRoleName", roleId);
-		} catch (SQLException e) {
+		} catch (SQLException s) {
+			s.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return list;
@@ -162,7 +180,9 @@ public class PortalManager {
 
 		try {
 			list = ibatis.queryForList("employees.getPrivRoleName", roleId);
-		} catch (SQLException e) {
+		} catch (SQLException s) {
+			s.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return list;
@@ -174,7 +194,9 @@ public class PortalManager {
 
 		try {
 			list = ibatis.queryForList("employees.getMasterMenuName", "");
-		} catch (SQLException e) {
+		} catch (SQLException s) {
+			s.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return list;
@@ -186,7 +208,9 @@ public class PortalManager {
 
 		try {
 			list = ibatis.queryForList("employees.getMasterPrivilegeName", "");
-		} catch (SQLException e) {
+		} catch (SQLException s) {
+			s.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return list;
@@ -203,7 +227,9 @@ public class PortalManager {
 			ibatis.startTransaction();
 			ibatis.insert("employees.insertNewRoleName", map);
 			ibatis.commitTransaction();
-		} catch (SQLException e) {
+		} catch (SQLException s) {
+			s.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			try {
@@ -221,7 +247,9 @@ public class PortalManager {
 			ibatis.startTransaction();
 			ibatis.insert("employees.insertNewRoleMenu", insertRoleMenuId);
 			ibatis.commitTransaction();
-		} catch (SQLException e) {
+		} catch (SQLException s) {
+			s.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			try {
@@ -239,7 +267,9 @@ public class PortalManager {
 			ibatis.startTransaction();
 			ibatis.insert("employees.insertNewRolePriv", insertRolePrivId);
 			ibatis.commitTransaction();
-		} catch (SQLException e) {
+		} catch (SQLException s) {
+			s.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			try {
@@ -259,7 +289,9 @@ public class PortalManager {
 			ibatis.delete("employees.deleteRolePriv", roleId);
 			ibatis.delete("employees.deleteRoleUser", roleId);
 			ibatis.commitTransaction();
-		} catch (SQLException e) {
+		} catch (SQLException s) {
+			s.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			try {
@@ -276,7 +308,9 @@ public class PortalManager {
 
 		try {
 			list = ibatis.queryForList("employees.getMasterModul", "");
-		} catch (SQLException e) {
+		} catch (SQLException s) {
+			s.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return list;
@@ -300,7 +334,9 @@ public class PortalManager {
 			ibatis.startTransaction();
 			ibatis.insert("employees.insertNewModul", map);
 			ibatis.commitTransaction();
-		} catch (SQLException e) {
+		} catch (SQLException s) {
+			s.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			try {
@@ -331,7 +367,9 @@ public class PortalManager {
 			ibatis.startTransaction();
 			ibatis.update("employees.editModul", map);
 			ibatis.commitTransaction();
-		} catch (SQLException e) {
+		} catch (SQLException s) {
+			s.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			try {
@@ -349,7 +387,9 @@ public class PortalManager {
 			ibatis.startTransaction();
 			ibatis.delete("employees.deleteMenu", menuIdModul);
 			ibatis.commitTransaction();
-		} catch (SQLException e) {
+		} catch (SQLException s) {
+			s.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			try {
@@ -369,7 +409,9 @@ public class PortalManager {
 
 		try {
 			list = ibatis.queryForList("list.getProvince", "");
-		} catch (SQLException e) {
+		} catch (SQLException s) {
+			s.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return list;
@@ -381,7 +423,9 @@ public class PortalManager {
 
 		try {
 			list = ibatis.queryForList("list.getCity", "");
-		} catch (SQLException e) {
+		} catch (SQLException s) {
+			s.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return list;
@@ -393,7 +437,9 @@ public class PortalManager {
 
 		try {
 			list = ibatis.queryForList("list.getMajor", "");
-		} catch (SQLException e) {
+		} catch (SQLException s) {
+			s.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return list;
@@ -405,7 +451,9 @@ public class PortalManager {
 
 		try {
 			list = ibatis.queryForList("list.getDepartment", "");
-		} catch (SQLException e) {
+		} catch (SQLException s) {
+			s.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return list;
@@ -417,7 +465,9 @@ public class PortalManager {
 
 		try {
 			list = ibatis.queryForList("list.getLocation", "");
-		} catch (SQLException e) {
+		} catch (SQLException s) {
+			s.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return list;
@@ -429,7 +479,9 @@ public class PortalManager {
 
 		try {
 			list = ibatis.queryForList("list.getPrivilege", "");
-		} catch (SQLException e) {
+		} catch (SQLException s) {
+			s.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return list;
@@ -441,7 +493,9 @@ public class PortalManager {
 
 		try {
 			list = ibatis.queryForList("list.getPosition", "");
-		} catch (SQLException e) {
+		} catch (SQLException s) {
+			s.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return list;
@@ -453,7 +507,9 @@ public class PortalManager {
 
 		try {
 			list = ibatis.queryForList("list.getBank", "");
-		} catch (SQLException e) {
+		} catch (SQLException s) {
+			s.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return list;
@@ -475,7 +531,9 @@ public class PortalManager {
 			ibatis.startTransaction();
 			ibatis.insert("list.insertProvince", map);
 			ibatis.commitTransaction();
-		} catch (SQLException e) {
+		} catch (SQLException s) {
+			s.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			try {
@@ -499,7 +557,9 @@ public class PortalManager {
 			ibatis.startTransaction();
 			ibatis.insert("list.insertCity", map);
 			ibatis.commitTransaction();
-		} catch (SQLException e) {
+		} catch (SQLException s) {
+			s.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			try {
@@ -523,7 +583,9 @@ public class PortalManager {
 			ibatis.startTransaction();
 			ibatis.insert("list.insertMajor", map);
 			ibatis.commitTransaction();
-		} catch (SQLException e) {
+		} catch (SQLException s) {
+			s.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			try {
@@ -547,7 +609,9 @@ public class PortalManager {
 			ibatis.startTransaction();
 			ibatis.insert("list.insertDepartment", map);
 			ibatis.commitTransaction();
-		} catch (SQLException e) {
+		} catch (SQLException s) {
+			s.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			try {
@@ -571,7 +635,9 @@ public class PortalManager {
 			ibatis.startTransaction();
 			ibatis.insert("list.insertLocation", map);
 			ibatis.commitTransaction();
-		} catch (SQLException e) {
+		} catch (SQLException s) {
+			s.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			try {
@@ -595,7 +661,9 @@ public class PortalManager {
 			ibatis.startTransaction();
 			ibatis.insert("list.insertPrivilege", map);
 			ibatis.commitTransaction();
-		} catch (SQLException e) {
+		} catch (SQLException s) {
+			s.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			try {
@@ -620,7 +688,9 @@ public class PortalManager {
 			ibatis.startTransaction();
 			ibatis.insert("list.insertPosition", map);
 			ibatis.commitTransaction();
-		} catch (SQLException e) {
+		} catch (SQLException s) {
+			s.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			try {
@@ -644,7 +714,9 @@ public class PortalManager {
 			ibatis.startTransaction();
 			ibatis.insert("list.insertBank", map);
 			ibatis.commitTransaction();
-		} catch (SQLException e) {
+		} catch (SQLException s) {
+			s.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			try {
@@ -665,7 +737,9 @@ public class PortalManager {
 			ibatis.startTransaction();
 			ibatis.delete("list.deleteProvince", id);
 			ibatis.commitTransaction();
-		} catch (SQLException e) {
+		} catch (SQLException s) {
+			s.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			try {
@@ -684,7 +758,9 @@ public class PortalManager {
 			ibatis.startTransaction();
 			ibatis.delete("list.deleteCity", id);
 			ibatis.commitTransaction();
-		} catch (SQLException e) {
+		} catch (SQLException s) {
+			s.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			try {
@@ -703,7 +779,9 @@ public class PortalManager {
 			ibatis.startTransaction();
 			ibatis.delete("list.deleteMajor", id);
 			ibatis.commitTransaction();
-		} catch (SQLException e) {
+		} catch (SQLException s) {
+			s.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			try {
@@ -722,7 +800,9 @@ public class PortalManager {
 			ibatis.startTransaction();
 			ibatis.delete("list.deleteDepartment", id);
 			ibatis.commitTransaction();
-		} catch (SQLException e) {
+		} catch (SQLException s) {
+			s.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			try {
@@ -741,7 +821,9 @@ public class PortalManager {
 			ibatis.startTransaction();
 			ibatis.delete("list.deleteLocation", id);
 			ibatis.commitTransaction();
-		} catch (SQLException e) {
+		} catch (SQLException s) {
+			s.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			try {
@@ -760,7 +842,9 @@ public class PortalManager {
 			ibatis.startTransaction();
 			ibatis.delete("list.deletePrivilege", id);
 			ibatis.commitTransaction();
-		} catch (SQLException e) {
+		} catch (SQLException s) {
+			s.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			try {
@@ -779,7 +863,9 @@ public class PortalManager {
 			ibatis.startTransaction();
 			ibatis.delete("list.deletePosition", id);
 			ibatis.commitTransaction();
-		} catch (SQLException e) {
+		} catch (SQLException s) {
+			s.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			try {
@@ -798,7 +884,9 @@ public class PortalManager {
 			ibatis.startTransaction();
 			ibatis.delete("list.deleteBank", id);
 			ibatis.commitTransaction();
-		} catch (SQLException e) {
+		} catch (SQLException s) {
+			s.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			try {
@@ -823,7 +911,9 @@ public class PortalManager {
 			ibatis.startTransaction();
 			ibatis.update("list.editPassword", map);
 			ibatis.commitTransaction();
-		} catch (SQLException e) {
+		} catch (SQLException s) {
+			s.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			try {
@@ -850,7 +940,9 @@ public class PortalManager {
 			ibatis.startTransaction();
 			ibatis.update("list.editProvince", map);
 			ibatis.commitTransaction();
-		} catch (SQLException e) {
+		} catch (SQLException s) {
+			s.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			try {
@@ -879,7 +971,9 @@ public class PortalManager {
 			ibatis.startTransaction();
 			ibatis.update("list.editCity", map);
 			ibatis.commitTransaction();
-		} catch (SQLException e) {
+		} catch (SQLException s) {
+			s.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			try {
@@ -907,7 +1001,9 @@ public class PortalManager {
 			ibatis.startTransaction();
 			ibatis.update("list.editMajor", map);
 			ibatis.commitTransaction();
-		} catch (SQLException e) {
+		} catch (SQLException s) {
+			s.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			try {
@@ -935,7 +1031,9 @@ public class PortalManager {
 			ibatis.startTransaction();
 			ibatis.update("list.editDepartment", map);
 			ibatis.commitTransaction();
-		} catch (SQLException e) {
+		} catch (SQLException s) {
+			s.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			try {
@@ -963,7 +1061,9 @@ public class PortalManager {
 			ibatis.startTransaction();
 			ibatis.update("list.editLocation", map);
 			ibatis.commitTransaction();
-		} catch (SQLException e) {
+		} catch (SQLException s) {
+			s.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			try {
@@ -991,7 +1091,9 @@ public class PortalManager {
 			ibatis.startTransaction();
 			ibatis.update("list.editPrivilege", map);
 			ibatis.commitTransaction();
-		} catch (SQLException e) {
+		} catch (SQLException s) {
+			s.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			try {
@@ -1019,7 +1121,9 @@ public class PortalManager {
 			ibatis.startTransaction();
 			ibatis.update("list.editPosition", map);
 			ibatis.commitTransaction();
-		} catch (SQLException e) {
+		} catch (SQLException s) {
+			s.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			try {
@@ -1047,7 +1151,9 @@ public class PortalManager {
 			ibatis.startTransaction();
 			ibatis.update("list.editBank", map);
 			ibatis.commitTransaction();
-		} catch (SQLException e) {
+		} catch (SQLException s) {
+			s.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			try {
@@ -1066,7 +1172,9 @@ public class PortalManager {
 
 		try {
 			list = ibatis.queryForList("employees.getPrivilegeRoleList", id);
-		} catch (SQLException e) {
+		} catch (SQLException s) {
+			s.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return list;
@@ -1078,7 +1186,9 @@ public class PortalManager {
 
 		try {
 			list = ibatis.queryForList("employees.getMenuRoleList", id);
-		} catch (SQLException e) {
+		} catch (SQLException s) {
+			s.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return list;
@@ -1096,7 +1206,9 @@ public class PortalManager {
 			ibatis.startTransaction();
 			ibatis.delete("employees.deleteExistMenu", map);
 			ibatis.commitTransaction();
-		} catch (SQLException e) {
+		} catch (SQLException s) {
+			s.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			try {
@@ -1119,7 +1231,9 @@ public class PortalManager {
 			ibatis.startTransaction();
 			ibatis.delete("employees.deleteExistPriv", map);
 			ibatis.commitTransaction();
-		} catch (SQLException e) {
+		} catch (SQLException s) {
+			s.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			try {
@@ -1142,7 +1256,9 @@ public class PortalManager {
 			ibatis.startTransaction();
 			ibatis.insert("employees.updateNewRoleName", map);
 			ibatis.commitTransaction();
-		} catch (SQLException e) {
+		} catch (SQLException s) {
+			s.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			try {
@@ -1164,7 +1280,9 @@ public class PortalManager {
 			ibatis.startTransaction();
 			ibatis.insert("employees.updateNewRoleMenu", map);
 			ibatis.commitTransaction();
-		} catch (SQLException e) {
+		} catch (SQLException s) {
+			s.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			try {
@@ -1186,7 +1304,9 @@ public class PortalManager {
 			ibatis.startTransaction();
 			ibatis.insert("employees.updateNewRolePriv", map);
 			ibatis.commitTransaction();
-		} catch (SQLException e) {
+		} catch (SQLException s) {
+			s.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			try {
@@ -1207,7 +1327,9 @@ public class PortalManager {
 			result = (Integer) ibatis.queryForObject("users.isAuthorized", user);
 			if (result == null)
 				return false;
-		} catch (SQLException e) {
+		} catch (SQLException s) {
+			s.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return true;	
@@ -1222,7 +1344,9 @@ public class PortalManager {
 			ibatis.startTransaction();
 			ibatis.update("users.updateStatusLogin", user);
 			ibatis.commitTransaction();
-		} catch (SQLException e) {
+		} catch (SQLException s) {
+			s.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			try {
@@ -1238,7 +1362,9 @@ public class PortalManager {
 			ibatis.startTransaction();
 			ibatis.update("users.resetStatusLogin", "");
 			ibatis.commitTransaction();
-		} catch (SQLException e) {
+		} catch (SQLException s) {
+			s.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			try {
@@ -1257,7 +1383,9 @@ public class PortalManager {
 		PortalUserBean bean = null;
 		try {
 			bean = (PortalUserBean) ibatis.queryForObject("users.checkLogin", user);
-		} catch (SQLException e) {
+		} catch (SQLException s) {
+			s.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return bean;
@@ -1267,7 +1395,9 @@ public class PortalManager {
 		PortalUserBean bean = new PortalUserBean();
 		try {
 			bean = (PortalUserBean) ibatis.queryForObject("users.getEmailData", username);
-		} catch (SQLException e) {
+		} catch (SQLException s) {
+			s.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return bean;
@@ -1283,7 +1413,9 @@ public class PortalManager {
 			result = (Integer) ibatis.queryForObject("users.checkUserExist", user);
 			if (null == result)
 				return false;
-		} catch (SQLException e) {
+		} catch (SQLException s) {
+			s.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return true;
@@ -1293,7 +1425,9 @@ public class PortalManager {
 		String url = null;
 		try {
 			url = (String) ibatis.queryForObject("users.getPortalUrl", "");
-		} catch (SQLException e) {
+		} catch (SQLException s) {
+			s.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return url;
@@ -1308,7 +1442,9 @@ public class PortalManager {
 			ibatis.startTransaction();
 			ibatis.update("users.updatePassword", user);
 			ibatis.commitTransaction();
-		} catch (SQLException e) {
+		} catch (SQLException s) {
+			s.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			try {
