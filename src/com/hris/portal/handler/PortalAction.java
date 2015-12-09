@@ -36,7 +36,6 @@ public class PortalAction extends Action {
 		HttpSession session = request.getSession(false);
 		String param = null;
 		
-		
 		//check session jika ada parameter yang diterima
 		if (null!=request.getParameter("zx") && PortalUtil.isBase64(request.getParameter("zx").replace(' ', '+'))) {
 			//parameter diterima
@@ -50,7 +49,7 @@ public class PortalAction extends Action {
 			    System.out.println("\nPORTAL paramdikirim: "+ param);
 			    
 				System.out.println("PORTAL Set session "+user[0]+".");
-//				session = request.getSession(false);
+
 				session.setAttribute("username", user[0]);
 				session.setAttribute("password", user[1]);
 				session.setAttribute("roleId", user[2]);
@@ -76,15 +75,15 @@ public class PortalAction extends Action {
 			else {
 				// hancurkan session karena username dan password tidak pernah ada
 				hForm.setErrorMessage("Invalid Login");
-//		    	session = request.getSession(false);
+
 		    	System.out.println("PORTAL "+session.getAttribute("username")+" tidak terautorisasi. Session dihancurkan.");
 		    	if (null != session)
 		    		session.invalidate();
 		    	System.out.println("PORTAL Kembali ke halaman login.");
 			}
 		}
-		
-		
+		hForm.setUrlPortal(manager.getPortalUrl());
+		request.setAttribute("zx", "?zx="+PortalUtil.createParameter(session));
 		
 		String task = hForm.getTask();
 		System.out.println("Tasknya : " + task);
@@ -113,7 +112,7 @@ public class PortalAction extends Action {
 				    
 				    //session set
 				    System.out.println("\nPORTAL Set session "+hForm.getPortalUserBean().getUserName()+".");
-	//			    session = request.getSession(false);
+
 					session.setAttribute("username", hForm.getPortalUserBean().getUserName());
 					session.setAttribute("password", password);
 					session.setAttribute("roleId", hForm.getPortalUserBean().getUserRoleId());
@@ -124,8 +123,8 @@ public class PortalAction extends Action {
 					
 					manager.updateStatusLogin(session.getAttribute("username").toString(), 1);
 					
-					System.out.println("ROLE ID USER = "+hForm.getPortalUserBean().getUserRoleId());
-					userRoleId = hForm.getPortalUserBean().getUserRoleId();
+					System.out.println("ROLE ID USER = "+session.getAttribute("roleId"));
+					userRoleId = session.getAttribute("roleId").toString();
 					
 					System.out.println("USERID= "+hForm.getPortalUserBean().getUserId());
 					
@@ -143,12 +142,12 @@ public class PortalAction extends Action {
 						return mapping.findForward("dashboardAdmin");
 					}else if("super".equalsIgnoreCase(hForm.getPortalUserBean().getUserName())){
 						System.out.println("Get user Id: "+hForm.getUserExist());
-						hForm.setListPortalMasterRoleMenu(manager.getMenuRoleName(hForm.getPortalUserBean().getUserRoleId()));
+						hForm.setListPortalMasterRoleMenu(manager.getMenuRoleName(session.getAttribute("roleId").toString()));
 						System.out.println(hForm.getPortalMasterRoleBean().getUrlMenuRole());
 						return mapping.findForward("dashboardSuper");
 					}else {
 						System.out.println("Get user Id: "+hForm.getUserExist());
-						hForm.setListPortalMasterRoleMenu(manager.getMenuRoleName(hForm.getPortalUserBean().getUserRoleId()));
+						hForm.setListPortalMasterRoleMenu(manager.getMenuRoleName(session.getAttribute("roleId").toString()));
 						System.out.println(hForm.getPortalMasterRoleBean().getUrlMenuRole());
 						return mapping.findForward("dashboardUser");
 					}
@@ -352,7 +351,7 @@ public class PortalAction extends Action {
 			hForm.setPassExist(passAction);
 			hForm.setUserIdExist(userIdAction);
 			
-			System.out.println("User Role ID Balik: "+userRoleId);
+			System.out.println("User Role ID Balik: "+session.getAttribute("roleId"));
 			System.out.println("ID USER di Admin = "+hForm.getUserExist());
 			System.out.println("ID PASS di Admin = "+hForm.getPassExist());
 			hForm.setListPortalMasterRoleMenu(manager.getMenuRoleName(userRoleId));
@@ -1046,7 +1045,7 @@ public class PortalAction extends Action {
 						hForm.setNewPass("");
 						hForm.setRePass("");
 						
-//						session = request.getSession(false);
+
 				    	if (null != session)
 				    		session.invalidate();
 				    	System.out.println("Session is Destroyed");
@@ -1062,11 +1061,20 @@ public class PortalAction extends Action {
 							getNotification(session, request);
 							return mapping.findForward("dashboardAdmin");							
 						}
+						else if(hForm.getUserExist().equals("super")){
+							hForm.setOldPass("");
+							hForm.setNewPass("");
+							hForm.setRePass("");
+							getNotification(session, request);
+							hForm.setListPortalMasterRoleMenu(manager.getMenuRoleName(session.getAttribute("roleId").toString()));
+							return mapping.findForward("dashboardSuper");							
+						}
 						else{
 							hForm.setOldPass("");
 							hForm.setNewPass("");
 							hForm.setRePass("");
 							getNotification(session, request);
+							hForm.setListPortalMasterRoleMenu(manager.getMenuRoleName(session.getAttribute("roleId").toString()));
 							return mapping.findForward("dashboardUser");
 						}
 					}
@@ -1080,11 +1088,20 @@ public class PortalAction extends Action {
 						getNotification(session, request);
 						return mapping.findForward("dashboardAdmin");							
 					}
+					else if(hForm.getUserExist().equals("super")){
+						hForm.setOldPass("");
+						hForm.setNewPass("");
+						hForm.setRePass("");
+						getNotification(session, request);
+						hForm.setListPortalMasterRoleMenu(manager.getMenuRoleName(session.getAttribute("roleId").toString()));
+						return mapping.findForward("dashboardSuper");							
+					}
 					else{
 						hForm.setOldPass("");
 						hForm.setNewPass("");
 						hForm.setRePass("");
 						getNotification(session, request);
+						hForm.setListPortalMasterRoleMenu(manager.getMenuRoleName(session.getAttribute("roleId").toString()));
 						return mapping.findForward("dashboardUser");
 					}
 				}
@@ -1103,9 +1120,7 @@ public class PortalAction extends Action {
 			hForm.setListPortalBank(manager.getAllBank());
 			return mapping.findForward("masterOthers");
 		}
-		else if ("logout".equalsIgnoreCase(task)) {
-//			session = request.getSession(false);
-			
+		else if ("logout".equalsIgnoreCase(task)) {		
 			manager.updateStatusLogin(session.getAttribute("username").toString(), 0);
 			System.out.println("PORTAL "+session.getAttribute("username")+" logout.");
 			
@@ -1123,12 +1138,16 @@ public class PortalAction extends Action {
 		if(session!=null && session.getAttribute("username")!=null ){
 			getNotification(session, request);
 			
-			if(session.getAttribute("username").toString().equalsIgnoreCase("super"))
+			if(session.getAttribute("username").toString().equalsIgnoreCase("super")) {
+				hForm.setListPortalMasterRoleMenu(manager.getMenuRoleName(session.getAttribute("roleId").toString()));
 				return mapping.findForward("dashboardSuper");
+			}
 			else if(session.getAttribute("username").toString().equalsIgnoreCase("admin"))
 				return mapping.findForward("dashboardAdmin");
-			else 
+			else {
+				hForm.setListPortalMasterRoleMenu(manager.getMenuRoleName(session.getAttribute("roleId").toString()));
 				return mapping.findForward("dashboardUser");
+			}
 		}
 		return mapping.findForward("success");
 	}

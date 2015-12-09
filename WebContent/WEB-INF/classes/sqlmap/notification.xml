@@ -1,0 +1,73 @@
+<!DOCTYPE sqlMap
+PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="notification">
+	<select id="countPendingLeaveApproval" parameterClass="java.lang.String" resultClass="java.lang.Integer">
+		SELECT 	COUNT(*)
+		FROM 	v_notifLeave
+		WHERE 	approvalStatus LIKE 'Pending Request'
+		AND 	approvedBy = #employeeId#
+	</select>
+	
+	<select id="countPendingExtraQuotaApproval" parameterClass="java.lang.String" resultClass="java.lang.Integer">
+		SELECT 	COUNT(*)
+		FROM 	v_notifExtraLeave
+		WHERE 	approvalStatus LIKE 'Pending'
+		AND 	approvedBy = #employeeId#
+	</select>
+	
+	<select id="countPendingAttendanceApproval" parameterClass="java.lang.String" resultClass="java.lang.Integer">
+		SELECT COUNT(*)
+		FROM v_notifAttendance
+		WHERE approvalStatus = 'Pending'
+		AND approvedBy = #employeeId#
+	</select>
+
+	<select id="getRecentlyApprovedLeave" parameterClass="java.lang.String" resultClass="com.hris.portal.model.NotificationBean">
+		SELECT	approvedByName AS name,
+				approvalStatus AS status,
+				firstDayOfLeave as dateOne,
+				lastDayOfLeave as dateTwo,
+				approvalDate
+		FROM 	v_notifLeave
+		WHERE 	(approvalStatus NOT LIKE 'Pending Request'
+		OR 		approvalStatus NOT LIKE 'Pending Cancel') 
+		AND 	employeeId = #employeeId#
+		AND 	TO_DATE(approvalDate, 'DD/MM/YYYY HH24:MI:SS') BETWEEN ADD_MONTHS(SYSDATE, -1) AND SYSDATE
+	</select>
+
+	<select id="getRecentlyApprovedExtraLeave" parameterClass="java.lang.String" resultClass="com.hris.portal.model.NotificationBean">
+		SELECT 	approvedByName as name,
+				approvalStatus as status,
+				substitutedDate as dateOne,
+				approvalDate
+		FROM 	v_notifExtraLeave
+		WHERE 	approvalStatus != 'Pending'
+		AND 	employeeId = #employeeId#
+		AND 	TO_DATE(approvalDate, 'DD/MM/YYYY HH24:MI:SS') BETWEEN ADD_MONTHS(SYSDATE, -1) AND SYSDATE 
+	</select>
+	
+	<select id="getRecentlyApprovedAttendance" parameterClass="java.lang.String" resultClass="com.hris.portal.model.NotificationBean">
+		SELECT	approvedByName AS name,
+				approvalStatus as status,
+				checkIn as dateOne,
+				checkOut as dateTwo,
+				approvalDate
+		FROM 	v_notifAttendance
+		WHERE 	approvalStatus != 'Pending'
+		AND 	employeeId = #employeeId#
+		AND 	TO_DATE(approvalDate, 'DD/MM/YYYY HH24:MI:SS') BETWEEN ADD_MONTHS(SYSDATE, -1) AND SYSDATE
+	</select>
+	
+	<select id="getUpcomingMassLeave" resultClass="com.hris.portal.model.SpecialDateBean">
+		SELECT 
+			TO_CHAR(special_date, 'dd Month yyyy') AS "date",
+			description AS description,
+			special_date_type AS type
+		FROM
+			ms_special_date
+		WHERE 
+			special_date BETWEEN SYSDATE AND ADD_MONTHS(SYSDATE,3)
+	</select>
+</sqlMap>

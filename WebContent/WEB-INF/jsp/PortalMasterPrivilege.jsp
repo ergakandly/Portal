@@ -49,7 +49,7 @@
 							<!-- BREADCRUMB -->
 							<ul class="breadcrumb">
 								<li><i class="fa fa-dashboard"></i><a
-									href="javascript:navigateToPage('dashboardAdmin');"> Dashboard</a></li>
+									href="<bean:write name="PortalForm" property="urlPortal"/><%= request.getAttribute("zx") %>"> Dashboard</a></li>
 								<li><i class="fa fa-th-large"></i> Master Privilege</li>
 							</ul>
 							<!-- END BREADCRUMB -->
@@ -136,19 +136,11 @@
 								<td class="kanan">Privilege Name :</td>
 								<td><html:text styleClass="form-control form-control-md" name="PortalForm"
 										property="portalPrivilegeBean.privilegeName" /></td>
-<!-- 								<td><div class="form-group"> -->
-<%-- 										<html:text styleClass="form-control" name="PortalForm" --%>
-<%-- 											property="portalModulBean.menuName" size="30" /> --%>
-<!-- 									</div></td> -->
 							</tr>
 							<tr>
 								<td class="kanan">Description :</td>
 								<td><html:text styleClass="form-control form-control-md" name="PortalForm"
 										property="portalPrivilegeBean.description" /></td>
-<!-- 								<td><div class="form-group"> -->
-<%-- 										<html:text styleClass="form-control" name="PortalForm" --%>
-<%-- 											property="portalModulBean.urlMenu" size="30" /> --%>
-<!-- 									</div></td> -->
 							</tr>
 						</table>
 					</div>
@@ -158,16 +150,6 @@
 							<i class="fa fa-check"></i> Submit
 						</button>
 						
-<!-- 						<button type="submit" class="btn btn-primary"> -->
-<!-- 							<i class="fa fa-check"></i> Submit -->
-<!-- 						</button> -->
-
-						<!-- 						<button type="submit" class="btn main-btn pull-right">Send -->
-						<!-- 									a message</button> -->
-<!-- 						<button type="button" class="btn btn-danger" data-dismiss="modal" -->
-<!-- 							onclick="javascript:onModalClose();"> -->
-<!-- 							<i class="fa fa-close"></i> Close -->
-<!-- 						</button> -->
 						<button type="button" class="btn btn-danger" data-dismiss="modal"
 							onclick="javascript:privilegeClose();">
 							<i class="fa fa-close"></i> Close

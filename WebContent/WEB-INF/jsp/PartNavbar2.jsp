@@ -43,11 +43,12 @@
 			data-toggle="dropdown"><i class=" fa fa-user" id="warnaPutih"></i>
 				<font color="white">Hi, <%= request.getSession().getAttribute("employeeName") %></font>  <b class="caret" id="warnaPutih"></b></a>
 			<ul class="dropdown-menu">
-				<li><a href="" data-toggle="modal" data-target="#modalLogin"><large>
-						<i class=" fa fa-user"></i> <large> Profile</a></li>
+				<li><a href="#" data-toggle="modal" data-target="#modalLogin"
+					data-backdrop="static"> <large> <i class=" fa fa-lock"></i>
+						<large> User Password </a></li>
 				<li class="divider"></li>
-				<li><a href="javascript:flyToPage('logout');"><span
-						class="glyphicon glyphicon-log-out"></span> Log Out</a></li>
+				<li><a href="javascript:flyToPage('logout');"><i
+						class=" fa fa-sign-out"></i> Log Out</a></li>
 			</ul></li>
 		<!-- END DROPDOWN USER -->
 	</ul>
@@ -72,7 +73,64 @@
 
 	</nav>
 	<!-- END NAVBAR -->
+	<br />
+	<br />
+	<!-- MODAL PASSWORD-->
+	<div class="modal fade" id="modalLogin" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel">User <bean:write name="PortalForm" property="userExist" /></h4>
+				</div>
+				<div class="modal-body ">
 
-	
+					<!-- PANEL PASSWORD-->
+					<div class="panel panel-info ">
+						<div class="panel-heading">
+							<h5 class="panel-title">
+								<span class="glyphicon glyphicon-lock"></span> Change Password
+							</h5>
+						</div>
+						<div class="panel-body">
+							<table align="center" class="table table-nonfluid table-hover ">
+								<tr>
+									<td class="kanan fontBold">Old Password <font color="red">*</font> :</td>			
+									<td><html:password styleClass="form-control" name="PortalForm"
+										property="oldPass"/></td>	
+								</tr>
+								<tr>
+									<td class="kanan fontBold">New Password <font color="red">*</font> :</td>			
+									<td><html:password styleClass="form-control" name="PortalForm"
+										property="newPass"/></td>
+								</tr>
+								<tr>
+									<td class="kanan fontBold">Retype New Password <font color="red">*</font> :</td>			
+									<td><html:password styleClass="form-control" name="PortalForm"
+										property="rePass"/></td>
+								</tr>
+							</table>
+						</div>
+					</div>
+					<!-- PANEL -->
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary"
+							onclick="javascript:flyToPage('masterOthers');">
+							<i class="fa fa-check"></i> Save Changes
+					</button>
+
+					<button type="button" class="btn btn-danger" data-dismiss="modal">
+						<i class="fa fa-close"></i> Close
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- MODAL -->
 </body>
 </html>

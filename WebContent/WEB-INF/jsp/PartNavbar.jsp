@@ -150,19 +150,11 @@ li.message-footer {
 									<td class="kanan fontBold">New Password <font color="red">*</font> :</td>			
 									<td><html:password styleClass="form-control" name="PortalForm"
 										property="newPass"/></td>
-										
-<!-- 									<td><input type="password" class="form-control" name="newPass" placeholder="**********" -->
-<%-- 										value="<bean:write name="PortalForm" property="newPass"/>"></td> --%>
-<!-- 									<td><input type="password" class="form-control"></td> -->
 								</tr>
 								<tr>
 									<td class="kanan fontBold">Retype New Password <font color="red">*</font> :</td>			
 									<td><html:password styleClass="form-control" name="PortalForm"
 										property="rePass"/></td>
-										
-<!-- 									<td><input type="password" class="form-control" name="rePass" placeholder="**********" -->
-<%-- 										value="<bean:write name="PortalForm" property="rePass"/>"></td> --%>
-<!-- 									<td><input type="password" class="form-control"></td> -->
 								</tr>
 							</table>
 						</div>
@@ -174,14 +166,6 @@ li.message-footer {
 							onclick="javascript:flyToPage('masterOthers');">
 							<i class="fa fa-check"></i> Save Changes
 					</button>
-					
-<!-- 					<button type="button" class="btn btn-primary" -->
-<!-- 							onclick="javascript:flyToPage('masterOthers', '', '', 'oldPass', 'newPass', 'rePass');"> -->
-<!-- 							<i class="fa fa-check"></i> Save changes -->
-<!-- 					</button> -->
-<!-- 					<button type="button" class="btn btn-primary"> -->
-<!-- 						<i class="fa fa-check"></i> Save changes -->
-<!-- 					</button> -->
 
 					<button type="button" class="btn btn-danger" data-dismiss="modal">
 						<i class="fa fa-close"></i> Close
@@ -251,26 +235,6 @@ li.message-footer {
 										}
 									}
 								}
-							// 								'empBean.roleId' : {
-							// 									validators : {
-							// 										callback : {
-							// 											message : 'Destination Role is required and cannot be empty',
-							// 											callback : function(value,
-							// 													validator, $field) {
-							// 												// Get the selected options
-							// 												var options = validator
-							// 														.getFieldElements(
-							// 																'empBean.departmentId')
-							// 														.val();
-
-							// 												if (options == null)
-							// 													return (false);
-							// 												else if (options != null)
-							// 													return (true);
-							// 											}
-							// 										}
-							// 									}
-							// 								}
 							}
 						});
 	</script>

@@ -47,16 +47,9 @@
 
 							<!-- BREADCRUMB -->
 							<ul class="breadcrumb">
-								<logic:equal name="PortalForm" property="userExist" value="super">
-									<li><i class="fa fa-dashboard"></i><a
-										href="javascript:navigateToPage('dashboardSuper');"> Dashboard</a></li>
-									<li><i class="fa fa-th-large"></i> Master City</li>
-								</logic:equal>
-								<logic:notEqual name="PortalForm" property="userExist" value="super">
-									<li><i class="fa fa-dashboard"></i><a
-										href="javascript:navigateToPage('dashboardUser');"> Dashboard</a></li>
-									<li><i class="fa fa-th-large"></i> Master City</li>
-								</logic:notEqual>
+								<li><i class="fa fa-dashboard"></i><a
+									href="<bean:write name="PortalForm" property="urlPortal"/><%= request.getAttribute("zx") %>"> Dashboard</a></li>
+								<li><i class="fa fa-th-large"></i> Master City</li>
 							</ul>
 							<!-- END BREADCRUMB -->
 						</div>

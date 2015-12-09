@@ -47,7 +47,7 @@
 							<!-- BREADCRUMB -->
 							<ul class="breadcrumb">
 								<li><i class="fa fa-dashboard"></i><a
-									href="javascript:flyToPage('dashboardAdmin');"> Dashboard</a></li>
+									href="<bean:write name="PortalForm" property="urlPortal"/><%= request.getAttribute("zx") %>"> Dashboard</a></li>
 								<li><i class="fa fa-crosshairs"></i> Assign Role</li>
 							</ul>
 							<!-- END BREADCRUMB -->

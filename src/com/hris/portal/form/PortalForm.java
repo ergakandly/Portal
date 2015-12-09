@@ -87,7 +87,14 @@ public class PortalForm extends ActionForm{
 	public List viewMenu;
 	public List viewPriv;
 	private String errorMessage;
+	private String urlPortal;
 	
+	public String getUrlPortal() {
+		return urlPortal;
+	}
+	public void setUrlPortal(String urlPortal) {
+		this.urlPortal = urlPortal;
+	}
 	public String getErrorMessage() {
 		return errorMessage;
 	}
